@@ -4,6 +4,7 @@
     <title>SIÉMISIKA-BANK - {% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename = 'images/logo_sika.png') }}" type="image/x-icon">
     <script type = "text/javascript" src = "{{ url_for('static', filename = 'js/index.js') }}" ></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/bootstrap-responsive.css') }}" />
@@ -46,6 +47,6 @@
     </div>
 
 </div>
-    {% include "includes/footer.html" %}
+   
 </body>
 </html>    

@@ -1,8 +1,8 @@
-<div class="navbar">
-  <a href="{{ url_for('dashboard') }}" class="nav-link {% if home %}active{% endif %}">Accueil</a>
-  {% if not session['utilisateur'] %}
+<div class="navbar" style="background-color: #ff7302 !important">
+  <a href="{{ url_for('dashboard') }}" class="nav-link {% if accueil %}active{% endif %}">Accueil</a>
+  {% if not session['utilisateurs'] %}
   <a href="{{ url_for('login') }}" class="nav-link {% if login %}active{% endif %}">Connexion</a>
-  {% else %}
+  {% else %} 
     {% if session['user_type']=="gestionnaire" %}
       <div class="subnav">
         <button class="subnavbtn">Gestion des clients <i class="fa fa-caret-down"></i></button>
@@ -11,8 +11,6 @@
           <a href="{{ url_for('voirclient') }}" class="nav-link {% if voirclient %}active{% endif %}" >Voir Clients</a>
           <a href="{{ url_for('modifierclient') }}" class="nav-link {% if modifierclient %}active{% endif %}">Modifier Clients</a>
           <a href="{{ url_for('statutclient') }}" class="nav-link {% if statutclient %}active{% endif %}">Statut Clients</a>
-
-
         </div>
       </div>
       <div class="subnav">

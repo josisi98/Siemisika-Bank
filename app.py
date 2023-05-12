@@ -27,7 +27,7 @@ db = scoped_session(sessionmaker(bind=engine))
 @app.route('/')
 @app.route("/dashboard")
 def dashboard():
-    return render_template("home.html", home=True)
+    return render_template("accueil.html", home=True)
 
 
 @app.route("/ajoutclient", methods=["GET", "POST"])
@@ -656,7 +656,7 @@ def login():
         result = db.execute("SELECT * FROM utilisateurs WHERE id = :u", {"u": usern}).fetchone()
         if result is not None:
             if bcrypt.check_password_hash(result['mot_de_passe'], passw) is True:
-                session['utilisateurss'] = usern
+                session['utilisateurs'] = usern
                 session['nom'] = result.nom
                 session['user_type'] = result.user_type
                 flash(f"{result.nom.capitalize()}, vous êtes connecté(e) avec succès !", "success")
