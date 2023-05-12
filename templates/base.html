@@ -8,7 +8,7 @@
     <script type = "text/javascript" src = "{{ url_for('static', filename = 'js/index.js') }}" ></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/bootstrap-responsive.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/style.css') }}" /> 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/pluton.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/style-responsive.css') }}" />
     <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
@@ -21,6 +21,8 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+
+    <style>{% block style %}{% endblock style %}</style>
 </head>
 <body>
 

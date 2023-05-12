@@ -1,36 +1,36 @@
 {% extends "base.html" %}
 
-{% block title %}Add Account{% endblock %}
+{% block title %}Ajouter un compte{% endblock %}
 
 {% block content %}
 <div class = "row mb-3">
     <div class="card">
         <div class="card-header" style="color:#000;text-align:center; font-weight: bold; font-size:22px ">
-            Add Account
+            Ajouter un compte
         </div>
         <div class="card-body">
-            <form action="addaccount" method="POST">
+            <form action="ajoutcompte" method="POST">
             
                 <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="cust_id" style="color:#000; font-weight: bold; font-size:18px ">Customer ID <span style="color:#ff0000"><sup>*</sup></span></label>
-                   <input class="form-control" name="cust_id" id="cust_id" type="textfield" placeholder="Customer Id" required maxlength="9">
+                    <label class="m-auto pr-3" for="id_client" style="color:#000; font-weight: bold; font-size:18px ">ID Client <span style="color:#ff0000"><sup>*</sup></span></label>
+                   <input class="form-control" name="id_client" id="id_client" type="textfield" placeholder="Id Client" required maxlength="9">
                 </div>
                 <div class="form-group input-group mb-3">
-                    <label for="acc_type" style="color:#000; font-weight: bold; font-size:18px ">Choose Account Type:<span style="color:#ff0000"><sup>*</sup></span></label>
-                    <select class="form-control" id="acc_type" name="acc_type">
-                        <option value="current" style="color:#000; font-weight: bold; font-size:15px ">Current</option>
-                        <option value="savings" style="color:#000; font-weight: bold; font-size:15px ">Savings</option>
+                    <label for="type_de_compte" style="color:#000; font-weight: bold; font-size:18px ">Choisir le type de compte:<span style="color:#ff0000"><sup>*</sup></span></label>
+                    <select class="form-control" id="type_de_compte" name="type_de_compte">
+                        <option value="Actuel" style="color:#000; font-weight: bold; font-size:15px ">Actuel</option>
+                        <option value="Épargne" style="color:#000; font-weight: bold; font-size:15px ">Épargne</option>
                     </select>
                   </div>
                 
                 <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="amount" style="color:#000; font-weight: bold; font-size:18px ">Deposite Amount<span style="color:#ff0000"><sup>*</sup></span></label>
-                   <input class="form-control" name="amount" id="amount" type="textfield" placeholder="amount" required>
+                    <label class="m-auto pr-3" for="montant" style="color:#000; font-weight: bold; font-size:18px ">Montant du dépôt<span style="color:#ff0000"><sup>*</sup></span></label>
+                   <input class="form-control" name="montant" id="montant" type="textfield" placeholder="montant" required>
                 </div>
-                <span style="color:#ff0000; font-weight:bold;"><p><b>(<sup> * </sup>) Fields are compulsory </b></p></span>
+                <span style="color:#ff0000; font-weight:bold;"><p><b>(<sup> * </sup>) Champs obligatoires</b></p></span>
                 <div class="form-group">
-                    <input type="submit" value="Submit" class="btn float-left login_btn" style="color:#000; font-weight: bold; font-size:18px ">
-                    <button class="reset_btn btn float-right" style="color:#000; font-weight: bold; font-size:18px ">Reset</button>
+                    <input type="submit" value="Envoyer" class="btn float-left login_btn" style="color:#000; font-weight: bold; font-size:18px ">
+                    <button class="reset_btn btn float-right" style="color:#000; font-weight: bold; font-size:18px ">Réinitialiser</button>
                 </div>
             </form>
         </div>

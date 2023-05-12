@@ -32,7 +32,7 @@ def dashboard():
 
 @app.route("/ajoutclient", methods=["GET", "POST"])
 def ajoutclient():
-    if 'utilisateurss' not in session:
+    if 'utilisateurs' not in session:
         return redirect(url_for('login'))
     if session['user_type'] != "gestionnaire":
         flash("Vous n'avez pas accès à cette page", "warning")
@@ -317,7 +317,7 @@ def voircompte():
             if data:
                 return render_template('voircompte.html', voircompte=True, data=data)
 
-            flash("Account n'a pas été trouvé ! Veuillez vérifier votre saisie.", 'danger')
+            flash("Le compte n'a pas été trouvé ! Veuillez vérifier votre saisie.", 'danger')
     else:
         flash("Vous n'avez pas accès à cette page", "warning")
         return redirect(url_for('dashboard'))
