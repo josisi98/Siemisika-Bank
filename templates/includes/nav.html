@@ -1,0 +1,37 @@
+<div class="navbar">
+  <a href="{{ url_for('dashboard') }}" class="nav-link {% if home %}active{% endif %}">Accueil</a>
+  {% if not session['utilisateur'] %}
+  <a href="{{ url_for('login') }}" class="nav-link {% if login %}active{% endif %}">Connexion</a>
+  {% else %}
+    {% if session['user_type']=="gestionnaire" %}
+      <div class="subnav">
+        <button class="subnavbtn">Gestion des clients <i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+          <a href="{{ url_for('ajoutclient') }}" class="nav-link {% if ajoutclient %}active{% endif %}">Ajouter Clients</a>
+          <a href="{{ url_for('voirclient') }}" class="nav-link {% if voirclient %}active{% endif %}" >Voir Clients</a>
+          <a href="{{ url_for('modifierclient') }}" class="nav-link {% if modifierclient %}active{% endif %}">Modifier Clients</a>
+          <a href="{{ url_for('statutclient') }}" class="nav-link {% if statutclient %}active{% endif %}">Statut Clients</a>
+
+
+        </div>
+      </div>
+      <div class="subnav">
+        <button class="subnavbtn">Gestion des comptes <i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+          <a href="{{ url_for('ajoutcompte') }}" class="nav-link {% if ajoutcompte %}active{% endif %}">Ajouter Comptes</a>
+          <a href="{{ url_for('voircompte') }}" class="nav-link {% if voircompte %}active{% endif %}">Voir Comptes</a>
+          <a href="{{ url_for('voircomptestatus') }}" class="nav-link {% if voircomptestatus %}active{% endif %}">Statut Comptes</a>
+        </div>
+      </div>
+    {% elif session['user_type']=="caissier" %}
+      <div class="subnav">
+        <button class="subnavbtn">Gestion des comptes <i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+          <a href="{{ url_for('voircompte') }}" class="nav-link {% if voircompte %}active{% endif %}">Voir Comptes</a>
+          <a href="{{ url_for('declaration') }}" class="nav-link {% if declaration %}active{% endif %}">Relevé de compte</a>
+        </div>
+      </div>
+    {% endif %}
+    <a href="{{ url_for('logout') }}" class="nav-link">Déconnexion</a>
+  {% endif %}
+</div>
