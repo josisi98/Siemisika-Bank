@@ -46,7 +46,7 @@ class Comptes(Base):
 class Transactions(Base):
     __tablename__="transactions"
     trans_id = Column(Integer, primary_key=True, autoincrement=True)
-    id_comptes = Column(Integer, ForeignKey('comptes.id_compte'))
+    id_compte = Column(Integer, ForeignKey('comptes.id_compte'))
     trans_message = Column(String(250), nullable=False)
     montant = Column(Integer, nullable=False)
     heure_sortir = Column(DateTime(timezone=False), default=datetime.datetime.utcnow)

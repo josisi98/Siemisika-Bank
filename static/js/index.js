@@ -4,8 +4,8 @@ $(document).ready(function() {
         $('.alert').fadeOut('slow');
     }, 5000); // <-- time in milliseconds
 
-    $('#showPass').click(function(){
-        var x = $("#passwordInput")[0]
+    $('#afficherPwd').click(function(){
+        var x = $("#pwdInput")[0]
         if (x.type === "password") {
             x.type = "text";
         } else {
@@ -15,44 +15,44 @@ $(document).ready(function() {
 
     $('.reset_btn').click(function(event){
         event.preventDefault();
-        $("#cust_ssn_id")[0].value = "";
-        $("#name")[0].value = "";
-        $("#address")[0].value = "";
+        $("#client_ssn_id")[0].value = "";
+        $("#nom")[0].value = "";
+        $("#email")[0].value = "";
         $("#age")[0].value = "";
-        $("#state")[0].value = "";
-        $("#city")[0].value = "";
+        $("#pays")[0].value = "";
+        $("#ville")[0].value = "";
     });
 
-    $('#cust_ssn_id, #age, #cust_id, #acc_id, #amount').keypress(function(event){
+    $('#client_ssn_id, #age, #id_client, #id_compte, #montant').keypress(function(event){
         if(event.which = 8 && isNaN(String.fromCharCode(event.which))){
             event.preventDefault(); //stop character from entering input
         }
     })
 
-    $('#name, #state, #city').keypress(function(event){
+    $('#nom, #pays, #ville').keypress(function(event){
         if(!((event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode==32)){
             event.preventDefault(); //stop character from entering input
         }
     })
 
-    $('#view_cust').validate({
+    $('#voir_client').validate({
         rules: {
-            cust_id: {
-                required: '#cust_ssn_id:blank'
+            id_client: {
+                required: '#client_ssn_id:blank'
             },
-            cust_ssn_id: {
-                required: '#cust_id:blank'
+            client_ssn_id: {
+                required: '#id_client:blank'
             }
           }
     })
 
-    $('#view_acc').validate({
+    $('#voir_cmpt').validate({
         rules: {
-            cust_id: {
-                required: '#acc_id:blank'
+            id_client: {
+                required: '#id_compte:blank'
             },
-            acc_id: {
-                required: '#cust_id:blank'
+            id_compte: {
+                required: '#id_client:blank'
             }
           }
     })
@@ -64,11 +64,11 @@ $(document).ready(function() {
             $('select.sel_type').not(this).val('current');
     });
 
-    $('.refresh_cust').click(function(event){
+    $('.actualiser_client').click(function(event){
         event.preventDefault()
         target = event.target
-        cust_id = parseInt(target.dataset.cust_id)
-        var data = {"cust_id": cust_id}
+        id_client = parseInt(target.dataset.id_client)
+        var data = {"id_client": id_client}
         $.ajax({
             type: "POST",
             url: "/api/v1/customerlog",
@@ -85,11 +85,11 @@ $(document).ready(function() {
         })
     })
 
-    $('.refresh_acc').click(function(event){
+    $('.actualiser_compte').click(function(event){
         event.preventDefault()
         target = event.target
-        acc_id = parseInt(target.dataset.acc_id)
-        var data = {"acc_id": acc_id}
+        id_compte = parseInt(target.dataset.id_compte)
+        var data = {"id_compte": id_compte}
         $.ajax({
             type: "POST",
             url: "/api/v1/accountlog",

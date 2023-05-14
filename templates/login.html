@@ -106,11 +106,11 @@ margin-left: 4px;
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
                         </div>
-                        <input class="form-control" name="password" type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$" placeholder="Mot de passe" required maxlength="30" id="passwordInput" style="height: 37px;">
+                        <input class="form-control" name="password" type="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{10,}$" placeholder="Mot de passe" required maxlength="30" id="pwdInput" style="height: 37px;">
 
                     </div>
                     <div style="padding-left: 15px;color: white;">
-                    <input type="checkbox" id="showPass">&nbsp;Afficher le mot de passe
+                    <input type="checkbox" id="afficherPwd">&nbsp;Afficher le mot de passe
                     </div>
                     
                     <div class="form-group">
@@ -139,13 +139,3 @@ margin-left: 4px;
     </div>
 </div>
 {% endblock %}
-<!-- <script>
-function myFunction() {
-var x = document.getElementById("myInput");
-if (x.type === "password") {
-x.type = "text";
-} else {
-x.type = "password";
-}
-}
-</script> -->

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Add Customer{% endblock %}
+{% block title %}Ajouter Client{% endblock %}
 
 {% block content %}
 <div class = "row col-md-8 my-5">
     <div class="card col-md-8 mx-auto px-0">
         <div class="card-header">
-            View Customer Details
+            Voir Détails Client
         </div>
         <div class="card-body">
             {% if data %}
@@ -15,10 +15,10 @@
                     <tbody>
                         <tr>
                             <td>
-                                Customer ID
+                                ID Client
                             </td>
                             <td>
-                                {{ data.cust_id }}
+                                {{ data.id_client }}
                             </td>
                         </tr>
                         <tr>
@@ -26,15 +26,15 @@
                                 SSN ID
                             </td>
                             <td>
-                                {{ data.cust_ssn_id }}
+                                {{ data.client_ssn_id }}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                Name
+                                nom
                             </td>
                             <td>
-                                {{ data.name }}
+                                {{ data.nom }}
                             </td>
                         </tr>
                         <tr>
@@ -47,34 +47,34 @@
                         </tr>
                         <tr>
                             <td>
-                                Address
+                                email
                             </td>
                             <td>
-                                {{ data.address }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                State
-                            </td>
-                            <td>
-                                {{ data.state }}
+                                {{ data.email }}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                City
+                                Pays
                             </td>
                             <td>
-                                {{ data.city }}
+                                {{ data.pays }}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                Status
+                                Ville
                             </td>
                             <td>
-                                {{ data.status }}
+                                {{ data.ville }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Statut
+                            </td>
+                            <td>
+                                {{ data.statut }}
                             </td>
                         </tr>
                     </tbody>
@@ -83,64 +83,64 @@
             <div class="row mb-4">
                 <div class="form-group col-md-12">
                     <div class="float-left">
-                        <a href="{{ url_for('editcustomer',cust_id=data.cust_id ) }}">
-                            <button class="btn">Edit</button>
+                        <a href="{{ url_for('modifierclient',id_client=data.id_client ) }}">
+                            <button class="btn">Modifier</button>
                         </a>
                     </div>
-                    {% if data.status == 'deactivate' %}
+                    {% if data.statut == 'deactiver' %}
                     <div class="float-right">
-                        <a href="{{ url_for('activatecustomer',cust_id=data.cust_id ) }}">
-                            <button class="btn" onclick="alert('Are you Sure, You want to activate this customer?')">Activate</button>
+                        <a href="{{ url_for('activerclient',id_client=data.id_client ) }}">
+                            <button class="btn" onclick="alert('Are you Sure, You want to activate this customer?')">Activer</button>
                         </a>
                     </div>
                     {% else %}
                     <div class="float-right">
-                        <a href="{{ url_for('deletecustomer',cust_id=data.cust_id ) }}">
-                            <button class="btn" onclick="alert('Are you Sure, You want to deactivate this customer?')">Delete</button>
+                        <a href="{{ url_for('supprimerclient',id_client=data.id_client ) }}">
+                            <button class="btn" onclick="alert('Are you Sure, You want to deactivate this customer?')">Supprimer</button>
                         </a>
                     </div>
                     {% endif %}
                 </div>
             </div>
             {%else%}
-            <form action="{{ url_for('viewcustomer') }}" id="view_cust" method="POST">
+            <form action="{{ url_for('voirclient') }}" id="voir_client" method="POST">
                 <table class="col-md-12">
                     <tbody>
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="m-auto float-left" for="cust_id">Customer Id</label>
+                                    <label class="m-auto float-left" for="id_client">Id Client</label>
                                 </div>
                             </th>
                             <th>
                                 <div class="form-group input-group">
-                                    <input class="form-control" name="cust_id" id="cust_id" type="textfield" placeholder="Customer Id" maxlength="9">
+                                    <input class="form-control" name="id_client" id="id_client" type="textfield" placeholder="Id Client" maxlength="9">
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th colspan="2">
                                 <div class="form-group input-group">
-                                    <label class="m-auto">or</label>
+                                    <label class="m-auto">ou</label>
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="m-auto float-left" for="cust_ssn_id">Customer SSN Id</label>
+                                    <label class="m-auto float-left" for="client_ssn_id">Client SSN Id</label>
                                 </div>
                             </th>
                             <th>
                                 <div class="form-group input-group">
-                                   <input class="form-control" name="cust_ssn_id" id="cust_ssn_id" type="textfield" placeholder="Customer SSN Id" maxlength="9">
+                                   <input class="form-control" name="client_ssn_id" id="client_ssn_id" type="textfield" placeholder="Client SSN Id" maxlength="9">
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th colspan="2">
                                 <div class="form-group input-group">
-                                    <input type="submit" value="View" class="btn mx-auto">
+                                    <input type="submit" value="Voir" class="btn mx-auto">
                                 </div>
                             </th>
                         </tr>

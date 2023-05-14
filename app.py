@@ -145,7 +145,7 @@ def modifierclient(id_client=None):
 
 @app.route('/supprimerclient')
 @app.route('/supprimerclient/<id_client>')
-def supprimerclient(id_client=None):
+def supprimerclient(id_client):
     if 'utilisateurs' not in session:
         return redirect(url_for('login'))
     if session['user_type'] != "gestionnaire":
@@ -174,7 +174,7 @@ def supprimerclient(id_client=None):
 
 @app.route('/activerclient')
 @app.route('/activerclient/<id_client>')
-def activerclient(id_client=None):
+def activerclient(id_client):
     if 'utilisateurs' not in session:
         return redirect(url_for('login'))
     if session['user_type'] != "gestionnaire":
@@ -231,7 +231,7 @@ def statutclient():
         return redirect(url_for('dashboard'))
     if session['user_type'] == "gestionnaire":
         # join query to get one log message per customer id
-        data = db.execute("SELECT clients.id_client as id, clients.client_ssn_id as ssn_id, carnet_client. message_enregistrement as message, carnet_client.heure_sortir as date from (select id_client, message_enregistrement,heure_sortir from carnet_client group by id_client ORDER by heure_sortir desc) as carnet_client JOIN clients ON clients.id_client = carnet_client.id_client group by carnet_client.id_client order by carnet_client.heure_sortir desc").fetchall()
+        data = db.execute("SELECT clients.id_client as id, clients.client_ssn_id as ssn_id, carnet_client.message_enregistrement as message, carnet_client.heure_sortir as date from (select id_client, message_enregistrement,heure_sortir from carnet_client group by id_client ORDER by heure_sortir desc) as carnet_client JOIN clients ON clients.id_client = carnet_client.id_client group by carnet_client.id_client order by carnet_client.heure_sortir desc").fetchall()
         if data:
             return render_template('statutclient.html', statutclient=True, data=data)
         else:
@@ -270,7 +270,7 @@ def ajoutcompte():
                     if query.id_compte is None:
                         flash("Les données ne sont pas insérées ! Vérifiez votre saisie.", "danger")
                     else:
-                        flash(f"{query.type_de_compte} Le compte est créé avec l'ID du client : {query.id_compte}.", "success")
+                        flash(f"Le compte {query.type_de_compte} est créé avec l'ID du client : {query.id_compte}.", "success")
                         return redirect(url_for('dashboard'))
                 else:
                     flash(f'Client avec identifiant: {id_client} a déjà un compte {type_de_compte}.', 'warning')
@@ -324,8 +324,8 @@ def voircompte():
     return render_template('voircompte.html', voircompte=True)
 
 
-@app.route("/voircomptestatus", methods=["GET", "POST"])
-def voircomptestatus():
+@app.route("/voircomptestatut", methods=["GET", "POST"])
+def voircomptestatut():
     if 'utilisateurs' not in session:
         return redirect(url_for('login'))
     if session['user_type'] != "gestionnaire":
@@ -334,16 +334,16 @@ def voircomptestatus():
     if session['user_type'] == "gestionnaire":
         data = db.execute("select * from comptes").fetchall()
         if data:
-            return render_template('voircomptestatus.html', voircomptestatus=True, data=data)
+            return render_template('voircomptestatut.html', voircomptestatut=True, data=data)
         else:
             flash("Les comptes sont introuvables !", 'danger')
-    return render_template('voircomptestatus.html', voircomptestatus=True)
+    return render_template('voircomptestatut.html', voircomptestatut=True)
 
 # Code pour le montant du dépôt
 
 @app.route('/depot', methods=['GET', 'POST'])
 @app.route('/depot/<id_compte>', methods=['GET', 'POST'])
-def depot(id_compte=None):
+def depot(id_compte):
     if 'utilisateurs' not in session:
         return redirect(url_for('login'))
     if session['user_type'] == "gestionnaire":
@@ -354,18 +354,18 @@ def depot(id_compte=None):
             return redirect(url_for('voircompte'))
         else:
             if request.method == "POST":
-                amount = request.form.get("amount")
+                montant = request.form.get("montant")
                 data = db.execute(
                     "select * from comptes where id_compte = :a and statut='activer'", {"a": id_compte}).fetchone()
                 if data is not None:
-                    balance = int(amount) + int(data.balance)
+                    balance = int(montant) + int(data.balance)
                     query = db.execute("UPDATE comptes SET balance= :b WHERE id_compte = :a", {
                                        "b": balance, "a": data.id_compte})
                     db.commit()
                     flash(
-                        f"{amount} Amount deposited into account: {data.id_compte} successfully.", 'success')
+                        f"{montant} Amount deposited into account: {data.id_compte} successfully.", 'success')
                     temp = Transactions(
-                        id_compte=data.id_compte, trans_message="Amount Deposited", amount=amount)
+                        id_compte=data.id_compte, trans_message="Amount Deposited", montant=montant)
                     db.add(temp)
                     db.commit()
                 else:
@@ -384,7 +384,7 @@ def depot(id_compte=None):
 
 @app.route('/retrait', methods=['GET', 'POST'])
 @app.route('/retrait/<id_compte>', methods=['GET', 'POST'])
-def retrait(id_compte=None):
+def retrait(id_compte):
     if 'utilisateurs' not in session:
         return redirect(url_for('login'))
     if session['user_type'] == "gestionnaire":
@@ -529,9 +529,9 @@ def declaration():
 # code for generate declaration PDF or Excel file
 
 
-@app.route('/pdf_xl_statement/<id_compte>')
-@app.route('/pdf_xl_statement/<id_compte>/<ftype>')
-def pdf_xl_statement(id_compte=None, ftype=None):
+@app.route('/declaration_pdf/<id_compte>')
+@app.route('/declaration_pdf/<id_compte>/<ftype>')
+def declaration_pdf(id_compte=None, ftype=None):
     if 'utilisateurs' not in session:
         return redirect(url_for('login'))
     if session['user_type'] == "gestionnaire":
@@ -541,7 +541,7 @@ def pdf_xl_statement(id_compte=None, ftype=None):
         if id_compte is not None:
             data = db.execute(
                 "SELECT * FROM transactions WHERE id_compte=:a order by heure_sortir limit 20;", {"a": id_compte}).fetchall()
-            column_names = ['TransactionId', 'Description', 'Date', 'Amount']
+            column_names = ['TransactionId', 'Description', 'Date', 'Montant']
             if data:
                 if ftype is None:  # Check for provide pdf file as default
                     pdf = FPDF()
@@ -551,11 +551,11 @@ def pdf_xl_statement(id_compte=None, ftype=None):
 
                     # code for setting header
                     pdf.set_font('Times', 'B', 16.0)
-                    pdf.cell(page_width, 0.0, "Retail Banking", align='C')
+                    pdf.cell(page_width, 0.0, "Siémisika-Bank", align='C')
                     pdf.ln(10)
 
                     # code for Showing account id
-                    msg = 'Account Statment : '+str(id_compte)
+                    msg = 'Relevé de compte : '+str(id_compte)
                     pdf.set_font('Times', '', 12.0)
                     pdf.cell(page_width, 0.0, msg, align='C')
                     pdf.ln(10)
@@ -570,7 +570,7 @@ def pdf_xl_statement(id_compte=None, ftype=None):
                     pdf.cell(page_width/5, th, 'Transaction Id')
                     pdf.cell(page_width/3, th, 'Description')
                     pdf.cell(page_width/3, th, 'Date')
-                    pdf.cell(page_width/7, th, 'Amont')
+                    pdf.cell(page_width/7, th, 'Montant')
                     pdf.ln(th)
 
                     pdf.set_font('Times', '', 11)
@@ -580,7 +580,7 @@ def pdf_xl_statement(id_compte=None, ftype=None):
                         pdf.cell(page_width/5, th, str(row.trans_id))
                         pdf.cell(page_width/3, th, row.trans_message)
                         pdf.cell(page_width/3, th, str(row.heure_sortir))
-                        pdf.cell(page_width/7, th, str(row.amount))
+                        pdf.cell(page_width/7, th, str(row.montant))
                         pdf.ln(th)
 
                     pdf.ln(10)
@@ -589,12 +589,12 @@ def pdf_xl_statement(id_compte=None, ftype=None):
                                      "a": id_compte}).fetchone()
 
                     pdf.set_font('Times', '', 10.0)
-                    msg = 'Current Balance : '+str(bal.balance)
+                    msg = 'Solde actuel : ' + str(bal.balance)
                     pdf.cell(page_width, 0.0, msg, align='C')
                     pdf.ln(5)
 
                     pdf.cell(page_width, 0.0,
-                             '-- End of déclaration --', align='C')
+                             '-- Fin de la déclaration--', align='C')
 
                     return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf', headers={'Content-Disposition': 'inline;filename=declaration.pdf'})
 
@@ -604,13 +604,13 @@ def pdf_xl_statement(id_compte=None, ftype=None):
                     # create WorkBook object
                     workbook = xlwt.Workbook()
                     # add a sheet
-                    sh = workbook.add_sheet('Account statment')
+                    sh = workbook.add_sheet('Extrait de compte')
 
                     # add headers
                     sh.write(0, 0, 'Transaction ID')
                     sh.write(0, 1, 'Description')
                     sh.write(0, 2, 'Date')
-                    sh.write(0, 3, 'Amount')
+                    sh.write(0, 3, 'Montant')
 
                     # add row data into Excel file
                     idx = 0
@@ -618,7 +618,7 @@ def pdf_xl_statement(id_compte=None, ftype=None):
                         sh.write(idx+1, 0, str(row.trans_id))
                         sh.write(idx+1, 1, row.trans_message)
                         sh.write(idx+1, 2, str(row.heure_sortir))
-                        sh.write(idx+1, 3, str(row.amount))
+                        sh.write(idx+1, 3, str(row.montant))
                         idx += 1
 
                     workbook.save(output)
@@ -628,9 +628,9 @@ def pdf_xl_statement(id_compte=None, ftype=None):
                                         "Content-Disposition": "attachment;filename=statment.xls"})
                     return response
             else:
-                flash("Invalid account Id", 'danger')
+                flash("ID de compte invalide", 'danger')
         else:
-            flash("Please, provide account Id", 'warning')
+            flash("Veuillez indiquer l'ID du compte", 'warning')
     return redirect(url_for('dashboard'))
 
 # route for 404 error
@@ -675,13 +675,14 @@ def api():
     <ol>
         <li>
             <a href="/api/v1/carnetclient">Carnet des clients</a>
+        </li>
+        <li>
             <a href="/api/v1/carnetcomptes">Carnet des comptes</a>
         </li>
     </ol>
     """
 
-# Api for update perticular customer log change in html table onClick of refresh
-
+# Api pour mettre à jour le journal d'un client particulier dans la table html onClick of refresh
 
 @app.route('/carnetclient', methods=["GET", "POST"])
 @app.route('/api/v1/carnetclient', methods=["GET", "POST"])
