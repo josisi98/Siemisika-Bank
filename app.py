@@ -34,11 +34,13 @@ def dashboard():
 
 @app.route("/ajoutclient", methods=["GET", "POST"])
 def ajoutclient():
+    # recupere les pays api
     recup_pays = requests.get('https://restcountries.com/v3.1/all')
     liste_pays = recup_pays.json()
     pays_nom = []
     for i in liste_pays:
         pays_nom.append(i['name']['common']) 
+        
     if 'utilisateurs' not in session:
         return redirect(url_for('login'))
     if session['user_type'] != "gestionnaire":
@@ -237,7 +239,7 @@ def statutclient():
         flash("Vous n'avez pas accès à cette page", "warning")
         return redirect(url_for('dashboard'))
     if session['user_type'] == "gestionnaire":
-        # join query to get one log message per customer id
+        # requête pour obtenir un message de journal par identifiant de client
         data = db.execute("SELECT clients.id_client as id, clients.client_ssn_id as ssn_id, carnet_client.message_enregistrement as message, carnet_client.heure_sortir as date from (select id_client, message_enregistrement,heure_sortir from carnet_client group by id_client ORDER by heure_sortir desc) as carnet_client JOIN clients ON clients.id_client = carnet_client.id_client group by carnet_client.id_client order by carnet_client.heure_sortir desc").fetchall()
         if data:
             return render_template('statutclient.html', statutclient=True, data=data)
@@ -370,9 +372,9 @@ def depot(id_compte):
                                        "b": balance, "a": data.id_compte})
                     db.commit()
                     flash(
-                        f"{montant} Amount deposited into account: {data.id_compte} successfully.", 'success')
+                        f"{montant} Montant déposé sur le compte: {data.id_compte} avec succès.", 'success')
                     temp = Transactions(
-                        id_compte=data.id_compte, trans_message="Amount Deposited", montant=montant)
+                        id_compte=data.id_compte, trans_message="Montant du dépôt", montant=montant)
                     db.add(temp)
                     db.commit()
                 else:
@@ -459,11 +461,11 @@ def transfert(id_client=None):
                             src_balance = src_data.balance - montant
                             trg_balance = trg_data.balance + montant
 
-                            test = db.execute("update accounts set balance = :b where id_client = :a and type_de_compte = :t", {
+                            test = db.execute("update comptes set balance = :b where id_client = :a and type_de_compte = :t", {
                                               "b": src_balance, "a": id_client, "t": src_type})
                             db.commit()
                             temp = Transactions(
-                                id_compte=src_data.id_compte, trans_message="Amount Transferted to "+str(trg_data.id_compte), amount=montant)
+                                id_compte=src_data.id_compte, trans_message="Montant transféré à "+str(trg_data.id_compte), montant=montant)
                             db.add(temp)
                             db.commit()
 
@@ -471,28 +473,28 @@ def transfert(id_client=None):
                                        "b": trg_balance, "a": id_client, "t": trg_type})
                             db.commit()
                             temp = Transactions(
-                                id_compte=trg_data.id_compte, trans_message="Montant reçu de " + str(src_data.id_compte), amount=montant)
+                                id_compte=trg_data.id_compte, trans_message="Montant reçu de " + str(src_data.id_compte), montant=montant)
                             db.add(temp)
                             db.commit()
 
                             flash(
-                                f"Amount transferted to {trg_data.id_compte} from {src_data.id_compte} successfully", 'success')
+                                f"Montant transféré à {trg_data.id_compte} de {src_data.id_compte} avec succèes", 'success')
                         else:
-                            flash("Insufficient amount to transfert.", "danger")
+                            flash("Montant insuffisant pour transférer.", "danger")
 
                     else:
-                        flash("Accounts not found", "danger")
+                        flash("Comptes introuvables", "danger")
 
                 else:
-                    flash("Can't Transfert amount to same account.", 'warning')
+                    flash("Impossible de transférer le montant sur le même compte.", 'warning')
 
             else:
                 data = db.execute(
-                    "select * from accounts where id_client = :a", {"a": id_client}).fetchall()
+                    "select * from comptes where id_client = :a", {"a": id_client}).fetchall()
                 if data and len(data) == 2:
                     return render_template('transfert.html', depot=True, id_client=id_client)
                 else:
-                    flash("Data Not found or Invalid Customer ID", 'danger')
+                    flash("Données introuvables ou ID client invalide", 'danger')
                     return redirect(url_for('voircompte'))
 
     return redirect(url_for('dashboard'))
