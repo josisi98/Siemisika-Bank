@@ -1,4 +1,6 @@
 import os
+import requests
+import json
 import io
 import sys
 from flask import send_file
@@ -32,6 +34,11 @@ def dashboard():
 
 @app.route("/ajoutclient", methods=["GET", "POST"])
 def ajoutclient():
+    recup_pays = requests.get('https://restcountries.com/v3.1/all')
+    liste_pays = recup_pays.json()
+    pays_nom = []
+    for i in liste_pays:
+        pays_nom.append(i['name']['common']) 
     if 'utilisateurs' not in session:
         return redirect(url_for('login'))
     if session['user_type'] != "gestionnaire":
@@ -68,7 +75,7 @@ def ajoutclient():
                     return redirect(url_for('voirclient'))
             flash(f'SSN id : {client_ssn_id} est déjà présent dans la base de données.', 'warning')
 
-    return render_template('ajoutclient.html', ajoutclient=True)
+    return render_template('ajoutclient.html', ajoutclient=True, pays=sorted(pays_nom))
 
 
 @app.route("/voirclient/<id_client>")
@@ -555,7 +562,7 @@ def declaration_pdf(id_compte=None, ftype=None):
                     pdf.ln(10)
 
                     # code for Showing account id
-                    msg = 'Relevé de compte : '+str(id_compte)
+                    msg = 'Relevé de compte : '+ str(id_compte)
                     pdf.set_font('Times', '', 12.0)
                     pdf.cell(page_width, 0.0, msg, align='C')
                     pdf.ln(10)
@@ -758,5 +765,5 @@ def carnetcomptes():
 # Main
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
-    app.debug = True
+    #app.debug = True
     app.run(host='0.0.0.0', port=5000)

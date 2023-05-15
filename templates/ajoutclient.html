@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group input-group mb-3">
                     <label class="m-auto pr-3" for="address" style="color:#000; font-weight: bold; font-size:18px ">Email<span style="color:#ff0000"><sup>*</sup></span></label>
-                   <input class="form-control" name="email" id="address" type="textfield" placeholder="Email" required maxlength="100">
+                   <input class="form-control" name="email" id="address" type="emailfield" placeholder="Email" required maxlength="100">
                 </div>
                 <div class="form-group input-group mb-3">
                     <label class="m-auto pr-3" for="age"style="color:#000; font-weight: bold; font-size:18px ">Age<span style="color:#ff0000"><sup>*</sup></span></label>
@@ -28,13 +28,20 @@
                 </div>
                 <div class="form-group input-group mb-3">
                     <label class="m-auto pr-3" for="state" style="color:#000; font-weight: bold; font-size:18px ">Pays<span style="color:#ff0000"><sup>*</sup></span></label>
-                   <input class="form-control" name="pays" id="state" type="textfield" placeholder="Pays" required maxlength="20">
-                </div>
+                    <select class="custom-select" id="inputGroupSelect01" name="pays">
+                      <option selected>Choisissez...</option>
+                      {% for data in pays %}
+                        <option value="{{ data }}">{{ data }}</option>
+                      {% endfor %}
+                    </select>
+                </div> 
+               
+
                 <div class="form-group input-group mb-3">
                     <label class="m-auto pr-3" for="city" style="color:#000; font-weight: bold; font-size:18px ">Ville<span style="color:#ff0000"><sup>*</sup></span></label>
                    <input class="form-control" name="ville" id="city" type="textfield" placeholder="Ville" required maxlength="20">
                 </div>
-                <span style="color:#ff0000; font-weight:bold;"><p><b>(<sup> * </sup>) Fields are compulsory </b></p></span>
+                <span style="color:#ff0000; font-weight:bold;"><p><b>(<sup> * </sup>) Champs obligatoires</b></p></span>
                 <div class="form-group" style="background-color:#ffff66; color:#000; font-weight: bold; font-size:22px ">
                     <input type="submit" value="Envoyer" class="btn float-left login_btn" style="font-weight:bold; font-size:18px;">
                     <button class="reset_btn btn float-right" style="font-weight:bold; font-size:18px;">Reset</button>

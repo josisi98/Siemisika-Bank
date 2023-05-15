@@ -32,4 +32,10 @@
     {% endif %}
     <a href="{{ url_for('logout') }}" class="nav-link">Déconnexion</a>
   {% endif %}
+
+  {% if session['utilisateurs'] %}
+    <div class="subnav float-right">
+      <p class="float-right font-weight-bold" style="color:#070439">{{ session['nom'] }} ({{ session['user_type'] }})</p>
+    </div>
+  {% endif %}
 </div>

@@ -5,6 +5,7 @@ $(document).ready(function() {
     }, 5000); // <-- time in milliseconds
 
     $('#afficherPwd').click(function(){
+        console.log("fabiennnnnnnnnnn")
         var x = $("#pwdInput")[0]
         if (x.type === "password") {
             x.type = "text";
