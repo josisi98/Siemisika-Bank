@@ -112,8 +112,8 @@ def voirclient(id_client=None):
     return render_template('voirclient.html', voirclient=True)
 
 
-@app.route('/modifierclient')
-@app.route('/modifierclient/<id_client>', methods=["GET", "POST"])
+@app.route('/modifierclient',  methods=["GET", "POST"])
+@app.route('/modifierclient/<id_client>')
 def modifierclient(id_client=None):
     if 'utilisateurs' not in session:
         return redirect(url_for('login'))
