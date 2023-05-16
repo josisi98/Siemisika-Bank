@@ -7,6 +7,13 @@
 
 {% block style %}
 <style>
+body{
+    background-image:url("{{url_for('static',filename='images/login.png')}}");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
 .container{
     height: 100%;
     align-content: center;
