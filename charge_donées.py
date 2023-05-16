@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from flask_bcrypt import Bcrypt
 from flask import Flask
+
 app = Flask(__name__)
 engine = create_engine('sqlite:///sikabank.db',connect_args={'check_same_thread': False},echo=True)
 Base.metadata.bind = engine

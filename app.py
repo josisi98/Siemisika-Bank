@@ -477,8 +477,7 @@ def transfert(id_client=None):
                             db.add(temp)
                             db.commit()
 
-                            flash(
-                                f"Montant transféré à {trg_data.id_compte} de {src_data.id_compte} avec succèes", 'success')
+                            flash(f"Montant transféré à {trg_data.id_compte} de {src_data.id_compte} avec succèes", 'success')
                         else:
                             flash("Montant insuffisant pour transférer.", "danger")
 

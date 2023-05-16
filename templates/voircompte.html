@@ -76,7 +76,7 @@
                                     <button class="btn">Dépôt</button>
                                 </a>
                             </div>
-                            {% if i.balance > 1 %}
+                            {% if data|length > 1 %}
                                 <div class="col-md-4">
                                     <a href="{{ url_for('transfert',id_client=i.id_client) }}">
                                         <button class="btn">Transfert</button>
