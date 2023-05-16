@@ -4,35 +4,35 @@
 
 {% block content %}
 <div class = "row mb-3">
-    <div class="card">
-        <div class="card-header" style="color:#ff7302;background-color:#070439;text-align:center; font-weight: bold; font-size:22px ">
+    <div class="card" >
+        <div class="card-header" style="color:#070439;background-color:#ff7302;text-align:center; font-weight: bold; font-size:22px ">
             Ajouter un compte
         </div>
-        <div class="card-body" style="background-color:#e5781fc0;">
-            <form action="ajoutcompte" method="POST">
-            
-                <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="id_client" style="color:#000; font-weight: bold; font-size:18px ">ID Client <span style="color:#ff0000"><sup>*</sup></span></label>
-                   <input class="form-control" name="id_client" id="id_client" type="textfield" placeholder="Id Client" required maxlength="9">
+        <div class="card-body"style="background-color:#070439;">
+            <form class="row gy-2 gx-3 align-items-center" action="ajoutcompte" method="POST" style="height: 40vh; display: contents;"  >
+                <div class="col-auto">
+                    <label class="m-auto pr-3" for="id_client" style="color:#fff; font-weight:bold;font-size:18px;">ID Client <span style="color:#ff0000"><sup>*</sup></span></label>
+                    <input class="form-control" name="id_client" id="id_client" type="textfield" placeholder="Id Client" required maxlength="9">
                 </div>
-                <div class="form-group input-group mb-3">
-                    <label for="type_de_compte" style="color:#000; font-weight: bold; font-size:18px ">Choisir le type de compte:<span style="color:#ff0000"><sup>*</sup></span></label>
-                    <select class="form-control" id="type_de_compte" name="type_de_compte">
+                <br>
+                <div class="col-auto" style="width: 35vw">
+                    <label for="type_de_compte" style="color:#fff; font-weight:bold;font-size:18px;">Choisir le type de compte:<span style="color:#ff0000"><sup>*</sup></span></label>
+                    <select class="form-control" id="type_de_compte" name="type_de_compte" >
                         <option value="Actuel" style="color:#000; font-weight: bold; font-size:15px ">Actuel</option>
                         <option value="Épargne" style="color:#000; font-weight: bold; font-size:15px ">Épargne</option>
                     </select>
-                  </div>
-                
-                <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="montant" style="color:#000; font-weight: bold; font-size:18px ">Montant du dépôt<span style="color:#ff0000"><sup>*</sup></span></label>
-                   <input class="form-control" name="montant" id="montant" type="textfield" placeholder="montant" required>
+                </div>
+                <br>
+                <div class="col-auto">
+                    <label class="m-auto pr-3" for="montant" style="color:#fff; font-weight:bold;font-size:18px;">Montant du dépôt<span style="color:#ff0000"><sup>*</sup></span></label>
+                    <input class="form-control" name="montant" id="montant" type="textfield" placeholder="montant" required>
                 </div>
                 <span style="color:#ff0000; font-weight:bold;"><p><b>(<sup> * </sup>) Champs obligatoires</b></p></span>
-                <div class="form-group">
-                    <input type="submit" value="Envoyer" class="btn float-left login_btn" style="color:#000; font-weight: bold; font-size:18px ">
-                    <button class="reset_btn btn float-right" style="color:#000; font-weight: bold; font-size:18px ">Réinitialiser</button>
+                <div class="form-group col-12">
+                    <input type="submit" value="Envoyer" class="btn float-left login_btn"  style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">
+                    <button class="reset_btn btn float-right"  style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">Réinitialiser</button>
                 </div>
-            </form>
+              </form>
         </div>
     </div>
 </div>
