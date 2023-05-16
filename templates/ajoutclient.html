@@ -5,11 +5,11 @@
 {% block content %}
 <div class = "row mb-3">
     <div class="card">
-        <div class="card-header" style="color:#000;text-align:center; font-weight: bold; font-size:22px ">
+        <div class="card-header" style="color:#ff7302;background-color:#070439;text-align:center; font-weight: bold; font-size:22px ">
             Ajouter Client
         </div>
-        <div class="card-body">
-            <form action="ajoutclient" method="POST">
+        <div class="card-body" style="background-color:#e5781fc0;">
+            <form action="ajoutclient" method="POST" >
                 <div class="form-group input-group mb-3">
                     <label class="m-auto pr-3" for="cust_ssn_id" style="color:#000; font-weight: bold; font-size:18px ">SSN ID Client<span style="color:#ff0000"><sup>*</sup></span></label>
                    <input class="form-control" name="client_ssn_id" id="cust_ssn_id" type="textfield" placeholder="SSN ID Client" required minlength="9" maxlength="9">
@@ -44,9 +44,10 @@
                 <span style="color:#ff0000; font-weight:bold;"><p><b>(<sup> * </sup>) Champs obligatoires</b></p></span>
                 <div class="form-group" style="background-color:#ffff66; color:#000; font-weight: bold; font-size:22px ">
                     <input type="submit" value="Envoyer" class="btn float-left login_btn" style="font-weight:bold; font-size:18px;">
-                    <button class="reset_btn btn float-right" style="font-weight:bold; font-size:18px;">Réinitialiser</button>
+                    <button class="reset_btn btn float-right" style="font-weight:bold; font-size:18px;">Reset</button>
                 </div>
             </form>
+            
         </div>
     </div>
 </div>
