@@ -4,7 +4,18 @@
 {% block content %}
 
 <main role="main">
-  <div class="jumbotron">
+  <div class="jumbotron sec-bg">
+    <div class="container">
+      <style>
+        body
+        {
+          background-image:url("{{url_for('static',filename='images/bimage2.jpg')}}");
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+        }
+      </style>
+    </div>
       <div class="col-sm-8 mx-auto">
           <h1>Bienvenue</h1>
           <p style="color: black;"><b> Bienvenue à #Siémisika-Bank ! Siémisika-Bank permet aux particuliers de gérer leurs comptes d'épargne et leurs comptes courants. Elle permet de créer un client, d'ouvrir un compte client, de mettre à jour et de supprimer un client, de gérer les opérations de caisse telles que les fonctionnalités de dépôt, de retrait et de transfert.</b></p>
