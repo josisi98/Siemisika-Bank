@@ -5,10 +5,10 @@
 {% block content %}
 <div class = "row col-md-8 my-5">
     <div class="card col-md-8 mx-auto px-0">
-        <div class="card-header" style="color:#ff7302;background-color:#070439;">
-            Voir Détails Client
+        <div class="card-header text-center" style="color:#070439;background-color:#ff7302;">
+            Détails Client
         </div>
-        <div class="card-body" style="background-color:#e5781fc0;">
+        <div class="card-body" style="background-color:#070439">
             {% if data %}
             <div class="row mb-4">
                 <table class="col-md-12">
@@ -109,7 +109,7 @@
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="m-auto float-left" for="id_client">Id Client</label>
+                                    <label class="m-auto float-left text-capitalize fs-2" for="id_client" style="color:#fff">Id Client</label>
                                 </div>
                             </th>
                             <th>
@@ -120,15 +120,15 @@
                         </tr>
                         <tr>
                             <th colspan="2">
-                                <div class="form-group input-group">
-                                    <label class="m-auto">ou</label>
+                                <div class="form-group input-group fs-2">
+                                    <label class="m-auto text-capitalize fs-2" style="color:#fff">ou</label>
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="m-auto float-left" for="client_ssn_id">Client SSN Id</label>
+                                    <label class="m-auto float-left text-capitalize fs-2" for="client_ssn_id" style="color:#fff">Client SSN Id</label>
                                 </div>
                             </th>
                             <th>
@@ -140,7 +140,7 @@
                         <tr>
                             <th colspan="2">
                                 <div class="form-group input-group">
-                                    <input type="submit" value="Voir" class="btn mx-auto">
+                                    <input type="submit" value="Voir" class="btn mx-auto" style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">
                                 </div>
                             </th>
                         </tr>

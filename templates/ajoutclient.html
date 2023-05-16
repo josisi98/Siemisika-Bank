@@ -3,51 +3,56 @@
 {% block title %}Ajouter Client{% endblock %}
 
 {% block content %}
+
+{% block style %}
+<style>
+</style>
+{% endblock style %}
 <div class = "row mb-3">
     <div class="card">
-        <div class="card-header" style="color:#ff7302;background-color:#070439;text-align:center; font-weight: bold; font-size:22px ">
+        <div class="card-header" style="color:#070439;background-color:#ff7302;text-align:center; font-weight: bold; font-size:22px ">
             Ajouter Client
         </div>
-        <div class="card-body" style="background-color:#e5781fc0;">
-            <form action="ajoutclient" method="POST" >
-                <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="cust_ssn_id" style="color:#000; font-weight: bold; font-size:18px ">SSN ID Client<span style="color:#ff0000"><sup>*</sup></span></label>
-                   <input class="form-control" name="client_ssn_id" id="cust_ssn_id" type="textfield" placeholder="SSN ID Client" required minlength="9" maxlength="9">
+        <!-- style="background-color:#e5781fc0;" -->
+        <div class="card-body" style="background-color:#070439;">
+            <form class="row g-3 needs-validation" action="ajoutclient" method="POST">
+                <div class="col-md-4">
+                    <label class="m-auto pr-3" for="client_ssn_id" style="color:#fff; font-weight: bold; font-size:18px ">SSN ID Client<span style="color:#ff0000"><sup>*</sup></span></label>
+                  <input class="form-control" name="client_ssn_id" id="client_ssn_id" type="intergerfield" placeholder="SSN ID Client" required minlength="9" maxlength="9">
                 </div>
-                <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="name" style="color:#000; font-weight: bold; font-size:18px ">Nom Client<span style="color:#ff0000"><sup>*</sup></span></label>
-                   <input class="form-control" name="nom" id="name" type="textfield" placeholder="Nom" required maxlength="50">
+                <div class="col-md-4">
+                    <label class="m-auto pr-3" for="nom" style="color:#fff; font-weight: bold; font-size:18px ">Nom Client<span style="color:#ff0000"><sup>*</sup></span></label>
+                    <input class="form-control" name="nom" id="nom" type="textfield" placeholder="Nom" required maxlength="50">
                 </div>
-                <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="address" style="color:#000; font-weight: bold; font-size:18px ">Email<span style="color:#ff0000"><sup>*</sup></span></label>
-                   <input class="form-control" name="email" id="address" type="emailfield" placeholder="Email" required maxlength="100">
+                <div class="col-md-4">
+                    <label class="m-auto pr-3" for="email" style="color:#fff; font-weight: bold; font-size:18px ">Email<span style="color:#ff0000"><sup>*</sup></span></label>
+                    <input class="form-control" name="email" id="email" type="emailfield" placeholder="Email" required maxlength="100">
                 </div>
-                <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="age"style="color:#000; font-weight: bold; font-size:18px ">Age<span style="color:#ff0000"><sup>*</sup></span></label>
-                   <input class="form-control" name="age" id="age" type="textfield" placeholder="Age" required maxlength="3">
+                <div class="col-md-6 p-3">
+                    <label class="m-auto pr-3" for="age" style="color:#fff; font-weight: bold; font-size:18px ">Age<span style="color:#ff0000"><sup>*</sup></span></label>
+                    <input class="form-control" name="age" id="age" type="textfield" placeholder="Age" required maxlength="3">
                 </div>
-                <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="state" style="color:#000; font-weight: bold; font-size:18px ">Pays<span style="color:#ff0000"><sup>*</sup></span></label>
+                <div class="col-md-3 p-3">
+                    <label class="m-auto pr-3" for="pays" style="color:#fff; font-weight: bold; font-size:18px ">Pays<span style="color:#ff0000"><sup>*</sup></span></label>
                     <select class="custom-select" id="inputGroupSelect01" name="pays">
                       <option selected>Choisissez...</option>
                       {% for data in pays %}
-                        <option value="{{ data }}">{{ data }}</option>
+                        <option value="{{ data }}" id="pays">{{ data }}</option>
                       {% endfor %}
                     </select>
-                </div> 
-               
-
-                <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="city" style="color:#000; font-weight: bold; font-size:18px ">Ville<span style="color:#ff0000"><sup>*</sup></span></label>
-                   <input class="form-control" name="ville" id="city" type="textfield" placeholder="Ville" required maxlength="20">
                 </div>
-                <span style="color:#ff0000; font-weight:bold;"><p><b>(<sup> * </sup>) Champs obligatoires</b></p></span>
-                <div class="form-group" style="background-color:#ffff66; color:#000; font-weight: bold; font-size:22px ">
-                    <input type="submit" value="Envoyer" class="btn float-left login_btn" style="font-weight:bold; font-size:18px;">
-                    <button class="reset_btn btn float-right" style="font-weight:bold; font-size:18px;">Reset</button>
+                <div class="col-md-3 p-3">
+                    <label class="m-auto pr-3" for="ville" style="color:#fff; font-weight: bold; font-size:18px ">Ville<span style="color:#ff0000"><sup>*</sup></span></label>
+                    <input class="form-control" name="ville" id="ville" type="textfield" placeholder="Ville" required maxlength="20">
                 </div>
-            </form>
-            
+                <div class="col-12">
+                    <span style="color:#fff; font-weight:bold;"><p><b>(<sup style="color:#ff0000"> * </sup>) Champs obligatoires</b></p></span>
+                </div>
+                <div class="form-group col-12" style="color:#fff; font-weight: bold; font-size:22px ">
+                    <input type="submit" value="Envoyer" class="btn float-left login_btn" style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">
+                    <button class="reset_btn btn float-right" style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">Réinitialiser</button>
+                </div>
+              </form>
         </div>
     </div>
 </div>
