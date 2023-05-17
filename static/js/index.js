@@ -58,10 +58,10 @@ $(document).ready(function() {
     })
 
     $('select.sel_type').change(function () {
-        if (this.value == 'current')
-            $('select.sel_type').not(this).val('savings');
-        if (this.value == 'savings')
-            $('select.sel_type').not(this).val('current');
+        if (this.value == 'Actuel')
+            $('select.sel_type').not(this).val('Épargne');
+        if (this.value == 'Épargne')
+            $('select.sel_type').not(this).val('Actuel');
     });
 
     $('.actualiser_client').click(function(event){
