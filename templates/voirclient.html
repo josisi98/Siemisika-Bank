@@ -90,13 +90,13 @@
                     {% if data.statut == 'deactiver' %}
                     <div class="float-right">
                         <a href="{{ url_for('activerclient',id_client=data.id_client ) }}">
-                            <button class="btn" onclick="alert('Are you Sure, You want to activate this customer?')">Activer</button>
+                            <button class="btn" onclick="alert('Êtes-vous sûr de vouloir activer ce client ?')">Activer</button>
                         </a>
                     </div>
                     {% else %}
                     <div class="float-right">
                         <a href="{{ url_for('supprimerclient',id_client=data.id_client ) }}">
-                            <button class="btn" onclick="alert('Are you Sure, You want to deactivate this customer?')"style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">Supprimer</button>
+                            <button class="btn" onclick="alert('Êtes-vous sûr de vouloir désactiver ce client ?')"style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">Supprimer</button>
                         </a>
                     </div>
                     {% endif %}
@@ -104,48 +104,23 @@
             </div>
             {%else%}
             <form action="{{ url_for('voirclient') }}" id="voir_client" method="POST">
-                <table class="col-md-12">
-                    <tbody>
-                        <tr>
-                            <th>
-                                <div class="form-group input-group">
-                                    <label class="m-auto float-left" for="id_client">Id Client</label>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="form-group input-group">
-                                    <input class="form-control" name="id_client" id="id_client" type="textfield" placeholder="Id Client" maxlength="9">
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th colspan="2">
-                                <div class="form-group input-group">
-                                    <label class="m-auto">ou</label>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                <div class="form-group input-group">
-                                    <label class="m-auto float-left" for="client_ssn_id">Client SSN Id</label>
-                                </div>
-                            </th>
-                            <th>
-                                <div class="form-group input-group">
-                                   <input class="form-control" name="client_ssn_id" id="client_ssn_id" type="textfield" placeholder="Client SSN Id" maxlength="9">
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th colspan="2">
-                                <div class="form-group input-group">
-                                    <input type="submit" value="Voir" class="btn mx-auto">
-                                </div>
-                            </th>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="col-auto">
+                    <label class="m-auto pr-3" for="id_compte" style="color:#fff ; font-weight:bold; font-size:16px;">ID CLIENT</label>
+                    <input class="form-control" name="id_compte" id="id_compte" type="textfield" placeholder="ID client" minlength="9" maxlength="9">
+                </div>
+                <br>
+                <br>
+                <div class="form-group input-group mb-3">
+                    <label class="m-auto pr-3" style="color:#fff ;font-weight:bold; font-size:16px;">OU</label>
+                </div>
+                <div class="col-auto" style="width: 35vw">
+                    <label class="m-auto pr-3" for="id_compte" style="color:#fff; font-weight:bold; font-size:16px;">CLIENT SSN ID</label>
+                   <input class="form-control" name="id_compte" id="id_compte" type="textfield" placeholder="client ssn id" minlength="9" maxlength="9">
+                </div>
+                <br>
+                <div class="form-group col-12 text-center" >
+                    <input type="submit" value="Voir" class="btn mx-auto" style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">
+                </div>
             </form>
             {% endif %}
         </div>
