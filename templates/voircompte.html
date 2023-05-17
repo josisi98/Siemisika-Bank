@@ -5,16 +5,16 @@
 {% block content %}
 <div class = "row col-md-8 my-5">
     <div class="card col-md-8 mx-auto px-0">
-        <div class="card-header"  style="color:#ff7302;background-color:#070439;">
-            Voir les détails du compte
+        <div class="card-header text-center" style="color:#070439;background-color:#ff7302; font-size:18px;font-weight:bold;">
+            VOIR LES DETAILS DU COMPTE
         </div>
-        <div class="card-body" style="background-color:#e5781fc0;">
+        <div class="card-body" style="background-color:#070439">
             {% if data %}
             {% for i in data %}
-            <div class="row mb-4">
-                <table class="col-md-12">
+            <div class="row mb-4" style="color:#fff;font-weight:bold;">
+                <table class="table table-bordered" style="color:#fff">
                     <tbody>
-                        <tr>
+                        <tr style="color:#fff; font-weight:bold;">
                             <td>
                                 ID du Client
                             </td>
@@ -62,7 +62,7 @@
                     {% if session['user_type']=="gestionnaire" %}
                         {% if i.statut == 'activer' %}
                         <a href="{{ url_for('supprimercompte') }}">
-                            <button class="btn float-right">Supprimer</button>
+                            <button class="btn float-right" style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">Supprimer</button>
                         </a>
                         {% else %}
                             <a href="{{ url_for('activercompte',id_compte=i.id_compte ) }}">
@@ -96,18 +96,18 @@
             {%else%}
             <form action="voircompte" id="voir_cmpt" method="POST">
                 <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="id_client">ID Client</label>
+                    <label class="m-auto pr-3" for="id_client" style="color:#fff">ID CLIENT</label>
                    <input class="form-control" name="id_client" id="id_client" type="textfield" placeholder="ID Client" minlength="9" maxlength="9">
                 </div>
                 <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3">Ou</label>
+                    <label class="m-auto pr-3" style="color:#fff">OU</label>
                 </div>
                 <div class="form-group input-group mb-3">
-                    <label class="m-auto pr-3" for="id_compte">ID Compte</label>
+                    <label class="m-auto pr-3" for="id_compte" style="color:#fff">ID COMPTE</label>
                    <input class="form-control" name="id_compte" id="id_compte" type="textfield" placeholder="ID Compte" minlength="9" maxlength="9">
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Voir" class="btn">
+                    <input type="submit" value="Voir" class="btn mx-auto" style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">
                 </div>
             </form>
             {% endif %}

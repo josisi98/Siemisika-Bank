@@ -5,12 +5,12 @@
 {% block content %}
 <div class = "row mb-3">
     <div class="card">
-        <div class="card-header text-center">
+        <div class="card-header text-center" style="color:#070439;background-color:#ff7302; font-size:18px;font-weight:bold;" >
             <h4>État du compte</h4>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="background-color:#070439">
             {% if data %}
-            <table class="table">
+            <table class="table table-bordered" style="color:#fff">
                 <thead>
                   <tr>
                     <th> ID du Client</th>
@@ -31,7 +31,7 @@
                     <td>   {{ i.statut }}</td>
                     <td>   {{ i.message }}</td>
                     <td>   {{ i.dernier_majour }}</td>
-                    <td><a href="javaScript:void(0)" class="actualiser_compte" data-id_compte="{{ i.id_compte }}">Actualiser</a></td>
+                    <td><a href="javaScript:void(0)" class="actualiser_compte" style="color: #ff7302;" data-id_compte="{{ i.id_compte }}">Actualiser</a></td>
                   </tr>
                 
                     
@@ -41,11 +41,11 @@
               </table>
             
             </div>
-            <div class="row">
+            <div class="row"  style="background-color:#070439; width:90vw; margin:0 auto;">
               <div class="form-group col-md-12 text-center">
                   <div class="float-right">
                       <a href="{{ url_for('voircomptestatut') }}">
-                        <button class="btn">Actualiser la liste</button>
+                        <button class="btn" style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">Actualiser la liste</button>
                       </a>
                   </div>
               </div>
