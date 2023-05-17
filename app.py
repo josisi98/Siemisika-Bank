@@ -112,8 +112,8 @@ def voirclient(id_client=None):
     return render_template('voirclient.html', voirclient=True)
 
 
-@app.route('/modifierclient',  methods=["GET", "POST"])
-@app.route('/modifierclient/<id_client>')
+@app.route('/modifierclient')
+@app.route('/modifierclient/<id_client>', methods=["GET", "POST"])
 def modifierclient(id_client=None):
     if 'utilisateurs' not in session:
         return redirect(url_for('login'))
@@ -149,7 +149,7 @@ def modifierclient(id_client=None):
                 else:
                     flash("Identité du client invalide. Veuillez vérifier l'identité du client.", 'warning')
 
-    return redirect(url_for('modifierclient'))
+    return redirect(url_for('voirclient'))
 
 
 @app.route('/supprimerclient')
@@ -633,7 +633,7 @@ def declaration_pdf(id_compte=None, ftype=None):
                     output.seek(0)
 
                     response = Response(output, mimetype="application/ms-excel", headers={
-                                        "Content-Disposition": "attachment;filename=statment.xls"})
+                                        "Content-Disposition": "attachment;filename=declaration.xls"})
                     return response
             else:
                 flash("ID de compte invalide", 'danger')
@@ -674,7 +674,6 @@ def login():
 
 # Api
 
-
 @app.route('/api')
 @app.route('/api/v1')
 def api():
@@ -707,7 +706,7 @@ def carnetclient():
             data = db.execute("select  message_enregistrement,heure_sortir from carnet_client where id_client= :c ORDER by heure_sortir desc", {
                               'c': id_client}).fetchone()
             t = {
-                "message": data. message_enregistrement,
+                "message": data.message_enregistrement,
                 "date": data.heure_sortir
             }
             return jsonify(t)
@@ -738,7 +737,7 @@ def carnetcomptes():
     if session['user_type'] == "gestionnaire":
         if request.method == "POST":
             id_compte = request.json['id_compte']
-            data = db.execute("select status,message,dernier_majour as heure_sortir from comptes where id_compte= :c;", {
+            data = db.execute("select statut,message,dernier_majour as heure_sortir from comptes where id_compte= :c;", {
                               'c': id_compte}).fetchone()
             t = {
                 "statut": data.statut,
