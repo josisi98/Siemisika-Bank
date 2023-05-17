@@ -168,7 +168,7 @@ def supprimerclient(id_client):
             if result is not None:
                 # delete from comptes WHERE id_compte = :a and type_de_compte=:at", {"a": id_compte,"at":type_de_compte}
                 query = db.execute(
-                    "UPDATE clients SET statut='desactiver' WHERE id_client = :a", {"a": id_client})
+                    "UPDATE clients SET statut='deactiver' WHERE id_client = :a", {"a": id_client})
                 db.commit()
                 temp = Carnet_client(
                     id_client=id_client,  message_enregistrement="Client Désactivé")
@@ -372,7 +372,7 @@ def depot(id_compte):
                                        "b": balance, "a": data.id_compte})
                     db.commit()
                     flash(
-                        f"{montant} Montant déposé sur le compte: {data.id_compte} avec succès.", 'success')
+                        f"Montant {montant} F CFA déposé sur le compte: {data.id_compte} avec succès.", 'success')
                     temp = Transactions(
                         id_compte=data.id_compte, trans_message="Montant du dépôt", montant=montant)
                     db.add(temp)
@@ -413,7 +413,7 @@ def retrait(id_compte):
                         query = db.execute("UPDATE comptes SET balance= :b WHERE id_compte = :a", 
                                            {"b": balance, "a": data.id_compte})
                         db.commit()
-                        flash(f"{montant} prélevé sur le compte: {data.id_compte} avec succès.", 'success')
+                        flash(f"{montant} F CFA prélevé sur le compte: {data.id_compte} avec succès.", 'success')
                         temp = Transactions(
                             id_compte=data.id_compte, trans_message="Montant prélevé", montant=montant)
                         db.add(temp)
@@ -477,7 +477,7 @@ def transfert(id_client=None):
                             db.add(temp)
                             db.commit()
 
-                            flash(f"Montant transféré à {trg_data.id_compte} de {src_data.id_compte} avec succèes", 'success')
+                            flash(f"Montant {montant} F CFA transféré à {trg_data.id_compte} de {src_data.id_compte} avec succèes", 'success')
                         else:
                             flash("Montant insuffisant pour transférer.", "danger")
 
@@ -597,12 +597,12 @@ def declaration_pdf(id_compte=None, ftype=None):
                                      "a": id_compte}).fetchone()
 
                     pdf.set_font('Times', '', 10.0)
-                    msg = 'Solde actuel : ' + str(bal.balance)
+                    msg = 'Solde actuel : ' + str(bal.balance) + ' F CFA'
                     pdf.cell(page_width, 0.0, msg, align='C')
                     pdf.ln(5)
 
                     pdf.cell(page_width, 0.0,
-                             '-- Fin de la déclaration--', align='C')
+                             '-- Fin de la déclaration --', align='C')
 
                     return Response(pdf.output(dest='S').encode('latin-1'), mimetype='application/pdf', headers={'Content-Disposition': 'inline;filename=declaration.pdf'})
 
