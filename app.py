@@ -168,7 +168,7 @@ def supprimerclient(id_client):
             if result is not None:
                 # delete from comptes WHERE id_compte = :a and type_de_compte=:at", {"a": id_compte,"at":type_de_compte}
                 query = db.execute(
-                    "UPDATE clients SET statut='deactiver' WHERE id_client = :a", {"a": id_client})
+                    "UPDATE clients SET statut='desactiver' WHERE id_client = :a", {"a": id_client})
                 db.commit()
                 temp = Carnet_client(
                     id_client=id_client,  message_enregistrement="Client Désactivé")
@@ -193,7 +193,7 @@ def activerclient(id_client):
         if id_client is not None:
             id_client = int(id_client)
             result = db.execute(
-                "SELECT * from clients WHERE id_client = :a and statut='deactiver'", {"a": id_client}).fetchone()
+                "SELECT * from clients WHERE id_client = :a and statut='desactiver'", {"a": id_client}).fetchone()
             if result is not None:
                 query = db.execute(
                     "UPDATE clients SET statut='activer' WHERE id_client = :a", {"a": id_client})
@@ -219,7 +219,7 @@ def activercompte(id_compte=None):
     if session['user_type'] == "gestionnaire":
         if id_compte is not None:
             id_compte = int(id_compte)
-            result = db.execute("SELECT * from comptes WHERE id_compte = :a and statut='deactiver'", {"a": id_compte}).fetchone()
+            result = db.execute("SELECT * from comptes WHERE id_compte = :a and statut='desactiver'", {"a": id_compte}).fetchone()
             if result is not None:
                 date = datetime.datetime.now()
                 query = db.execute("UPDATE comptes SET statut='activer', message='Le compte est réactivé', dernier_majour = :d WHERE id_compte = :a", {
@@ -304,7 +304,7 @@ def supprimercompte():
                 # delete from comptes WHERE id_compte = :a and type_de_compte=:at", {"a": id_compte,"at":type_de_compte}
                 message = "Compte désactivé"
                 date = datetime.datetime.now()
-                query = db.execute("UPDATE comptes SET statut='deactiver', message= :m, dernier_majour = :d WHERE id_compte = :a;", {
+                query = db.execute("UPDATE comptes SET statut='desactiver', message= :m, dernier_majour = :d WHERE id_compte = :a;", {
                                    "m": message, "d": date, "a": id_compte})
                 db.commit()
                 flash(f"Le compte client a été désactivé avec succès.", "success")

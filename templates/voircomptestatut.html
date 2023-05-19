@@ -19,7 +19,7 @@
                     <th> État du compte</th>
                     <th> Message</th>
                     <th> Dernière Miseàjour</th>
-                    <th> Operations</th>
+                    <th> Opérations</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -28,7 +28,7 @@
                     <td> {{ i.id_client }}</td>
                     <td>  {{ i.id_compte }}</td>
                     <td> {{ i.type_de_compte }}</td>
-                    <td>   {{ i.statut }}</td>
+                    <td> <span class="badge bg-success text-center">{{ i.statut }}</span></td>
                     <td>   {{ i.message }}</td>
                     <td>   {{ i.dernier_majour }}</td>
                     <td><a href="javaScript:void(0)" class="actualiser_compte" style="color: #ff7302;" data-id_compte="{{ i.id_compte }}">Actualiser</a></td>

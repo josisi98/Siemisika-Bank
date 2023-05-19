@@ -25,7 +25,6 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="{{ url_for('static', filename = 'js/index.js') }}"></script>
 
     {% block style %}{% endblock style %}
 </head>
@@ -35,7 +34,7 @@
     {% include "includes/header.html" %}
 
 <div class="container my-5">
-    <!-- this code is used for showing any sucsees/worning/failur popup message -->
+    <!-- Ce code est utilisé pour afficher un message contextuel en cas de succès, de panne ou de défaillance. -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, message in messages %}

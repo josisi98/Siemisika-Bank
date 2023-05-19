@@ -15,7 +15,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="input col-md-1 col-xs-2">
-            <!--		Show Numbers Of Rows 		-->
+            <!--		Afficher le nombre de lignes 		-->
             <select class="form-control" name="pays" id="maxLine" style="margin-bottom: 10px;height: auto;width: auto;">
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -111,30 +111,30 @@
 function getPagination(table) {
 
   $('#maxLine').on('change', function(e) {
-    $('.pagination').html(''); // reset pagination
-    var trnum = 0; // reset tr counter
-    var maxLine = parseInt($(this).val()); // get Max Rows from select option
-    var totalLigne = $(table + ' tbody tr').length; // numbers of rows
-    $(table + ' tr:gt(0)').each(function() { // each TR in  table and not the header
-      trnum++; // Start Counter
-      if (trnum > maxLine) { // if tr number gt maxLine
+    $('.pagination').html(''); // réinitialiser la pagination
+    var trnum = 0; // réinitialiser le compteur de tr
+    var maxLine = parseInt($(this).val()); // Obtenir le nombre maximum de lignes à partir de l'option sélectionnée
+    var totalLigne = $(table + ' tbody tr').length; // nombre de lignes
+    $(table + ' tr:gt(0)').each(function() { // chaque TR dans le tableau et non dans l'en-tête
+      trnum++; // Compteur de départ
+      if (trnum > maxLine) { // si le nombre de tr est supérieur à maxLine
 
-        $(this).hide(); // fade it out
+        $(this).hide(); // l'effacer
       }
       if (trnum <= maxLine) {
         $(this).show();
       } // else fade in Important in case if it ..
     }); //  was fade out to fade it in
-    if (totalLigne > maxLine) { // if tr total rows gt max rows option
+    if (totalLigne > maxLine) { // si le nombre total de lignes est supérieur à l'option max rows
       var pagenum = Math.ceil(totalLigne / maxLine); // ceil total(rows/maxLine) to get ..
-      //	numbers of pages
-      for (var i = 1; i <= pagenum;) { // for each page append pagination li
+      //	nombres de pages
+      for (var i = 1; i <= pagenum;) { // pour chaque page, ajouter le lien pagination li
         $('.pagination').append('<li class"wp" data-page="' + i + '">\
 <span>' + i++ + '<span class="sr-only">(current)</span></span>\
 </li>').show();
       } // end for i
-    } // end if row count > max rows
-    $('.pagination li:first-child').addClass('activer'); // add activer class to the first li
+    } // fin si le nombre de lignes > nombre maximum de lignes
+    $('.pagination li:first-child').addClass('activer'); // ajouter une classe d'actifs à la première ligne
     $('.pagination li').on('click', function() { // on click each page
       var pageNum = $(this).attr('data-page'); // get it's number
       var trIndex = 0; // reset tr counter
