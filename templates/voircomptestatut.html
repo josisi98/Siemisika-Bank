@@ -28,7 +28,11 @@
                     <td> {{ i.id_client }}</td>
                     <td>  {{ i.id_compte }}</td>
                     <td> {{ i.type_de_compte }}</td>
-                    <td> <span class="badge bg-success text-center">{{ i.statut }}</span></td>
+                    {% if i.statut == 'activer' %}
+                      <td> <span class="badge bg-success text-center">{{ i.statut }}</span></td>
+                    {% else %}
+                    <td> <span class="badge bg-danger text-center">{{ i.statut }}</span></td>
+                    {% endif %}
                     <td>   {{ i.message }}</td>
                     <td>   {{ i.dernier_majour }}</td>
                     <td><a href="javaScript:void(0)" class="actualiser_compte" style="color: #ff7302;" data-id_compte="{{ i.id_compte }}">Actualiser</a></td>
@@ -49,7 +53,7 @@
                       </a>
                   </div>
               </div>
-          </div>
+            </div>
             {% endif %}
         </div>
     </div>

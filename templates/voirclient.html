@@ -74,7 +74,7 @@
                                 Statut
                             </td>
                             <td>
-                                <span class="badge bg-success text-center">{{ i.statut }}</span>
+                                <span class="badge bg-success text-center">{{ data.statut }}</span>
                             </td>
                         </tr>
                     </tbody>
@@ -87,7 +87,7 @@
                             <button class="btn"style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">Modifier</button>
                         </a>
                     </div>
-                    {% if data.statut == 'deactiver' %}
+                    {% if data.statut == 'desactiver' %}
                     <div class="float-right">
                         <a href="{{ url_for('activerclient',id_client=data.id_client ) }}">
                             <button class="btn" onclick="alert('Êtes-vous sûr de vouloir activer ce client ?')">Activer</button>
@@ -104,8 +104,8 @@
                 {%else%}
                 <form action="{{ url_for('voirclient') }}" id="voir_client" method="POST">
                     <div class="col-auto">
-                        <label class="m-auto pr-3" for="id_compte" style="color:#fff ; font-weight:bold; font-size:16px;">ID CLIENT</label>
-                        <input class="form-control" name="id_compte" id="id_compte" type="textfield" placeholder="ID client" minlength="9" maxlength="9">
+                        <label class="m-auto pr-3" for="id_client" style="color:#fff ; font-weight:bold; font-size:16px;">ID CLIENT</label>
+                        <input class="form-control" name="id_client" id="id_client" type="textfield" placeholder="ID client" minlength="9" maxlength="9">
                     </div>
                     <br>
                     <br>

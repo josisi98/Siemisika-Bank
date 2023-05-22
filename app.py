@@ -26,6 +26,7 @@ db = scoped_session(sessionmaker(bind=engine))
 
 # MAIN
 
+
 @app.route('/')
 @app.route("/dashboard")
 def dashboard():
@@ -39,8 +40,8 @@ def ajoutclient():
     liste_pays = recup_pays.json()
     pays_nom = []
     for i in liste_pays:
-        pays_nom.append(i['name']['common']) 
-        
+        pays_nom.append(i['name']['common'])
+
     if 'utilisateurs' not in session:
         return redirect(url_for('login'))
     if session['user_type'] != "gestionnaire":
@@ -49,33 +50,37 @@ def ajoutclient():
     if session['user_type'] == "gestionnaire":
         if request.method == "POST":
             client_ssn_id = int(request.form.get("client_ssn_id"))
-            nom = request.form.get("nom")
-            email = request.form.get("email")
+            nom = str(request.form.get("nom"))
+            email = str(request.form.get("email"))
             age = int(request.form.get("age"))
-            pays = request.form.get("pays")
-            ville = request.form.get("ville")
-            result = db.execute("SELECT * from clients WHERE client_ssn_id = :c", {"c": client_ssn_id}).fetchone()
+            pays = str(request.form.get("pays"))
+            ville = str(request.form.get("ville"))
+            result = db.execute(
+                "SELECT * from clients WHERE client_ssn_id = :c", {"c": client_ssn_id}).fetchone()
             if result is None:
                 result = db.query(Clients).count()
                 if result == 0:
                     query = Clients(id_client=110110000, client_ssn_id=client_ssn_id, nom=nom,
-                                      email=email, age=age, pays=pays, ville=ville, statut='activer')
+                                    email=email, age=age, pays=pays, ville=ville, statut='activer')
                 else:
                     query = Clients(client_ssn_id=client_ssn_id, nom=nom, email=email,
-                                      age=age, pays=pays, ville=ville, statut='activer')
+                                    age=age, pays=pays, ville=ville, statut='activer')
                 # result = db.execute("INSERT INTO clients (client_ssn_id,nom,email,age,pays,ville) VALUES (:c,:n,:add,:a,:s,:ville)", {"c": client_ssn_id,"n":nom,"add":email,"a": age,"s":pays,"ville":ville})
                 db.add(query)
                 db.commit()
                 if query.id_client is None:
-                    flash("Les données ne sont pas insérées ! Vérifiez votre saisie.", "danger")
+                    flash(
+                        "Les données ne sont pas insérées ! Vérifiez votre saisie.", "danger")
                 else:
                     temp = Carnet_client(id_client=query.id_client,
-                                       message_enregistrement="Client Créé")
+                                         message_enregistrement="Client Créé")
                     db.add(temp)
                     db.commit()
-                    flash(f"Client {query.nom} est créé avec l'identifiant du client : {query.id_client}.", "success")
+                    flash(
+                        f"Client {query.nom} est créé avec l'identifiant du client : {query.id_client}.", "success")
                     return redirect(url_for('voirclient'))
-            flash(f'SSN id : {client_ssn_id} est déjà présent dans la base de données.', 'warning')
+            flash(
+                f'SSN id : {client_ssn_id} est déjà présent dans la base de données.', 'warning')
 
     return render_template('ajoutclient.html', ajoutclient=True, pays=sorted(pays_nom))
 
@@ -90,8 +95,8 @@ def voirclient(id_client=None):
         return redirect(url_for('dashboard'))
     if session['user_type'] == "gestionnaire":
         if request.method == "POST":
-            client_ssn_id = request.form.get("client_ssn_id")
-            id_client = request.form.get("id_client")
+            client_ssn_id = request.form.get('client_ssn_id')
+            id_client = request.form.get('id_client')
             data = db.execute("SELECT * from clients WHERE id_client = :c or client_ssn_id = :d", {
                               "c": id_client, "d": client_ssn_id}).fetchone()
             if data is not None:
@@ -129,11 +134,12 @@ def modifierclient(id_client=None):
                 if data is not None and data.statut != 'desactiver':
                     return render_template('modifierclient.html', modifierclient=True, data=data)
                 else:
-                    flash('Le client est désactivé ou absent de la base de données.', 'warning')
+                    flash(
+                        'Le client est désactivé ou absent de la base de données.', 'warning')
             else:
                 id_client = int(id_client)
-                nom = request.form.get("nom")
-                email = request.form.get("email")
+                nom = str(request.form.get("nom"))
+                email = str(request.form.get("email"))
                 age = int(request.form.get("age"))
                 result = db.execute(
                     "SELECT * from clients WHERE id_client = :c and statut='activer'", {"c": id_client}).fetchone()
@@ -145,9 +151,11 @@ def modifierclient(id_client=None):
                         id_client=id_client, message_enregistrement="Mise à jour des données clients")
                     db.add(temp)
                     db.commit()
-                    flash(f"Les données des clients ont été mises à jour avec succès.", "success")
+                    flash(
+                        f"Les données des clients ont été mises à jour avec succès.", "success")
                 else:
-                    flash("Identité du client invalide. Veuillez vérifier l'identité du client.", 'warning')
+                    flash(
+                        "Identité du client invalide. Veuillez vérifier l'identité du client.", 'warning')
 
     return redirect(url_for('voirclient'))
 
@@ -177,7 +185,8 @@ def supprimerclient(id_client):
                 flash(f"Le Client est Desactiver.", "success")
                 return redirect(url_for('dashboard'))
             else:
-                flash(f"Client avec identifiant: {id_client} est déjà désactivé ou n'est pas présent dans la base de données.", 'warning')
+                flash(
+                    f"Client avec identifiant: {id_client} est déjà désactivé ou n'est pas présent dans la base de données.", 'warning')
     return redirect(url_for('modifierclient'))
 
 
@@ -204,7 +213,8 @@ def activerclient(id_client):
                 db.commit()
                 flash(f"Le client est activé.", "success")
                 return redirect(url_for('dashboard'))
-            flash(f"Client avec identifiant: {id_client} est déjà activé ou n'est pas présent dans la base de données.", 'warning')
+            flash(
+                f"Client avec identifiant: {id_client} est déjà activé ou n'est pas présent dans la base de données.", 'warning')
     return redirect(url_for('modifierclient'))
 
 
@@ -219,7 +229,8 @@ def activercompte(id_compte=None):
     if session['user_type'] == "gestionnaire":
         if id_compte is not None:
             id_compte = int(id_compte)
-            result = db.execute("SELECT * from comptes WHERE id_compte = :a and statut='desactiver'", {"a": id_compte}).fetchone()
+            result = db.execute(
+                "SELECT * from comptes WHERE id_compte = :a and statut='desactiver'", {"a": id_compte}).fetchone()
             if result is not None:
                 date = datetime.datetime.now()
                 query = db.execute("UPDATE comptes SET statut='activer', message='Le compte est réactivé', dernier_majour = :d WHERE id_compte = :a", {
@@ -227,7 +238,8 @@ def activercompte(id_compte=None):
                 db.commit()
                 flash(f"Le compte est activé.", "success")
                 return redirect(url_for('dashboard'))
-            flash(f"Compte avec identifiant: {id_compte} est déjà activé ou n'est pas présent dans la base de données.", 'warning')
+            flash(
+                f"Compte avec identifiant: {id_compte} est déjà activé ou n'est pas présent dans la base de données.", 'warning')
     return redirect(url_for('voircompte'))
 
 
@@ -240,7 +252,7 @@ def statutclient():
         return redirect(url_for('dashboard'))
     if session['user_type'] == "gestionnaire":
         # requête pour obtenir un message de journal par identifiant de client
-        data = db.execute("SELECT clients.id_client as id, clients.client_ssn_id as ssn_id, carnet_client.message_enregistrement as message, carnet_client.heure_sortir as date from (select id_client, message_enregistrement,heure_sortir from carnet_client group by id_client ORDER by heure_sortir desc) as carnet_client JOIN clients ON clients.id_client = carnet_client.id_client group by carnet_client.id_client order by carnet_client.heure_sortir desc").fetchall()
+        data = db.execute("SELECT clients.id_client as id, clients.client_ssn_id as ssn_id, clients.nom, clients.statut, carnet_client.message_enregistrement as message, carnet_client.heure_sortir as date from (select id_client, message_enregistrement,heure_sortir from carnet_client group by id_client ORDER by heure_sortir desc) as carnet_client JOIN clients ON clients.id_client = carnet_client.id_client group by carnet_client.id_client order by carnet_client.heure_sortir desc").fetchall()
         if data:
             return render_template('statutclient.html', statutclient=True, data=data)
         else:
@@ -270,21 +282,25 @@ def ajoutcompte():
                     result = db.query(Comptes).count()
                     if result == 0:
                         query = Comptes(id_compte=360110000, type_de_compte=type_de_compte, balance=montant, id_client=id_client,
-                                         statut='activer', message=message, dernier_majour=datetime.datetime.now())
+                                        statut='activer', message=message, dernier_majour=datetime.datetime.now())
                     else:
                         query = Comptes(type_de_compte=type_de_compte, balance=montant, id_client=id_client,
-                                         statut='activer', message=message, dernier_majour=datetime.datetime.now())
+                                        statut='activer', message=message, dernier_majour=datetime.datetime.now())
                     db.add(query)
                     db.commit()
                     if query.id_compte is None:
-                        flash("Les données ne sont pas insérées ! Vérifiez votre saisie.", "danger")
+                        flash(
+                            "Les données ne sont pas insérées ! Vérifiez votre saisie.", "danger")
                     else:
-                        flash(f"Le compte {query.type_de_compte} est créé avec l'ID du client : {query.id_compte}.", "success")
+                        flash(
+                            f"Le compte {query.type_de_compte} est créé avec l'ID du client : {query.id_compte}.", "success")
                         return redirect(url_for('dashboard'))
                 else:
-                    flash(f'Client avec identifiant: {id_client} a déjà un compte {type_de_compte}.', 'warning')
+                    flash(
+                        f'Client avec identifiant: {id_client} a déjà un compte {type_de_compte}.', 'warning')
             else:
-                flash(f"Client avec identifiant: {id_client} n'existe pas dans la base de données.", 'warning')
+                flash(
+                    f"Client avec identifiant: {id_client} n'existe pas dans la base de données.", 'warning')
     return render_template('ajoutcompte.html', ajoutcompte=True)
 
 
@@ -309,7 +325,8 @@ def supprimercompte():
                 db.commit()
                 flash(f"Le compte client a été désactivé avec succès.", "success")
                 return redirect(url_for('dashboard'))
-            flash(f"Compte avec identifiant: {id_compte} est déjà désactivé ou le compte n'est pas trouvé.", 'warning')
+            flash(
+                f"Compte avec identifiant: {id_compte} est déjà désactivé ou le compte n'est pas trouvé.", 'warning')
     return render_template('supprimercompte.html', supprimercompte=True)
 
 
@@ -321,12 +338,16 @@ def voircompte():
         if request.method == "POST":
             id_compte = request.form.get("id_compte")
             id_client = request.form.get("id_client")
+            if id_compte and id_compte.strip():
+                id_compte = int(request.form.get("id_compte"))
+                id_client = int(request.form.get("id_client"))
             data = db.execute("SELECT * from comptes WHERE id_client = :c or id_compte = :d", {
                               "c": id_client, "d": id_compte}).fetchall()
             if data:
                 return render_template('voircompte.html', voircompte=True, data=data)
 
-            flash("Le compte n'a pas été trouvé ! Veuillez vérifier votre saisie.", 'danger')
+            flash(
+                "Le compte n'a pas été trouvé ! Veuillez vérifier votre saisie.", 'danger')
     else:
         flash("Vous n'avez pas accès à cette page", "warning")
         return redirect(url_for('dashboard'))
@@ -349,6 +370,7 @@ def voircomptestatut():
     return render_template('voircomptestatut.html', voircomptestatut=True)
 
 # Code pour le montant du dépôt
+
 
 @app.route('/depot', methods=['GET', 'POST'])
 @app.route('/depot/<id_compte>', methods=['GET', 'POST'])
@@ -391,6 +413,7 @@ def depot(id_compte):
 
 # Code pour le montant de retrait
 
+
 @app.route('/retrait', methods=['GET', 'POST'])
 @app.route('/retrait/<id_compte>', methods=['GET', 'POST'])
 def retrait(id_compte):
@@ -410,10 +433,11 @@ def retrait(id_compte):
                 if data is not None:
                     if int(data.balance) >= int(montant):
                         balance = int(data.balance)-int(montant)
-                        query = db.execute("UPDATE comptes SET balance= :b WHERE id_compte = :a", 
+                        query = db.execute("UPDATE comptes SET balance= :b WHERE id_compte = :a",
                                            {"b": balance, "a": data.id_compte})
                         db.commit()
-                        flash(f"{montant} F CFA prélevé sur le compte: {data.id_compte} avec succès.", 'success')
+                        flash(
+                            f"{montant} F CFA prélevé sur le compte: {data.id_compte} avec succès.", 'success')
                         temp = Transactions(
                             id_compte=data.id_compte, trans_message="Montant prélevé", montant=montant)
                         db.add(temp)
@@ -434,6 +458,7 @@ def retrait(id_compte):
     return redirect(url_for('dashboard'))
 
 # Code pour le montant du transfertt
+
 
 @app.route('/transfert', methods=['GET', 'POST'])
 @app.route('/transfert/<id_client>', methods=['GET', 'POST'])
@@ -477,7 +502,8 @@ def transfert(id_client=None):
                             db.add(temp)
                             db.commit()
 
-                            flash(f"Montant {montant} F CFA transféré à {trg_data.id_compte} de {src_data.id_compte} avec succèes", 'success')
+                            flash(
+                                f"Montant {montant} F CFA transféré à {trg_data.id_compte} de {src_data.id_compte} avec succèes", 'success')
                         else:
                             flash("Montant insuffisant pour transférer.", "danger")
 
@@ -485,7 +511,8 @@ def transfert(id_client=None):
                         flash("Comptes introuvables", "danger")
 
                 else:
-                    flash("Impossible de transférer le montant sur le même compte.", 'warning')
+                    flash(
+                        "Impossible de transférer le montant sur le même compte.", 'warning')
 
             else:
                 data = db.execute(
@@ -563,7 +590,7 @@ def declaration_pdf(id_compte=None, ftype=None):
                     pdf.ln(10)
 
                     # code for Showing account id
-                    msg = 'Relevé de compte : '+ str(id_compte)
+                    msg = 'Relevé de compte : ' + str(id_compte)
                     pdf.set_font('Times', '', 12.0)
                     pdf.cell(page_width, 0.0, msg, align='C')
                     pdf.ln(10)
@@ -642,17 +669,23 @@ def declaration_pdf(id_compte=None, ftype=None):
     return redirect(url_for('dashboard'))
 
 # route for 404 error
+
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template("404.html")
 
 # Logout
+
+
 @app.route("/logout")
 def logout():
     session.pop('utilisateurs', None)
     return redirect(url_for('login'))
 
 # LOGIN
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if 'utilisateurs' in session:
@@ -661,18 +694,22 @@ def login():
     if request.method == "POST":
         usern = request.form.get("username").upper()
         passw = request.form.get("password").encode('utf-8')
-        result = db.execute("SELECT * FROM utilisateurs WHERE id = :u", {"u": usern}).fetchone()
+        result = db.execute(
+            "SELECT * FROM utilisateurs WHERE id = :u", {"u": usern}).fetchone()
         if result is not None:
             if bcrypt.check_password_hash(result['mot_de_passe'], passw) is True:
                 session['utilisateurs'] = usern
                 session['nom'] = result.nom
                 session['user_type'] = result.user_type
-                flash(f"{result.nom.capitalize()}, vous êtes connecté(e) avec succès !", "success")
+                flash(
+                    f"{result.nom.capitalize()}, vous êtes connecté(e) avec succès !", "success")
                 return redirect(url_for('dashboard'))
-        flash("Désolé, le nom d'utilisateurs ou le mot de passe ne correspond pas.", "danger")
+        flash(
+            "Désolé, le nom d'utilisateurs ou le mot de passe ne correspond pas.", "danger")
     return render_template("login.html", login=True)
 
 # Api
+
 
 @app.route('/api')
 @app.route('/api/v1')
@@ -690,6 +727,7 @@ def api():
     """
 
 # Api pour mettre à jour le journal d'un client particulier dans la table html onClick of refresh
+
 
 @app.route('/carnetclient', methods=["GET", "POST"])
 @app.route('/api/v1/carnetclient', methods=["GET", "POST"])
@@ -724,6 +762,7 @@ def carnetclient():
             return jsonify(dict_data)
 
 # Api pour la mise à jour d'un journal de compte particulier dans un tableau html lors d'un clic de rafraîchissement
+
 
 @app.route('/carnetcomptes', methods=["GET", "POST"])
 @app.route('/api/v1/carnetcomptes', methods=["GET", "POST"])
@@ -765,5 +804,5 @@ def carnetcomptes():
 # Main
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
-    #app.debug = True
+    # app.debug = True
     app.run(host='0.0.0.0', port=5000)
