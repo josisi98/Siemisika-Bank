@@ -338,9 +338,9 @@ def voircompte():
         if request.method == "POST":
             id_compte = request.form.get("id_compte")
             id_client = request.form.get("id_client")
-            if id_compte and id_compte.strip():
-                id_compte = int(request.form.get("id_compte"))
-                id_client = int(request.form.get("id_client"))
+            # if id_compte and id_compte.strip():
+            #     id_compte = int(request.form.get("id_compte"))
+            #     id_client = int(request.form.get("id_client"))
             data = db.execute("SELECT * from comptes WHERE id_client = :c or id_compte = :d", {
                               "c": id_client, "d": id_compte}).fetchall()
             if data:

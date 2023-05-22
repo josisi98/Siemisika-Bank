@@ -73,9 +73,11 @@
                             <td>
                                 Statut
                             </td>
-                            <td>
-                                <span class="badge bg-success text-center">{{ data.statut }}</span>
-                            </td>
+                            {% if data.statut == 'activer' %}
+                            <td> <span class="badge bg-success text-center">{{ data.statut }}</span></td>
+                            {% else %}
+                            <td> <span class="badge bg-danger text-center">{{ data.statut }}</span></td>
+                            {% endif %}
                         </tr>
                     </tbody>
                 </table>
@@ -90,7 +92,7 @@
                     {% if data.statut == 'desactiver' %}
                     <div class="float-right">
                         <a href="{{ url_for('activerclient',id_client=data.id_client ) }}">
-                            <button class="btn" onclick="alert('Êtes-vous sûr de vouloir activer ce client ?')">Activer</button>
+                            <button class="btn" onclick="alert('Êtes-vous sûr de vouloir activer ce client ?')" style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">Activer</button>
                         </a>
                     </div>
                     {% else %}
@@ -113,8 +115,8 @@
                         <label class="m-auto pr-3" style="color:#fff ;font-weight:bold; font-size:16px;">OU</label>
                     </div>
                     <div class="col-auto">
-                        <label class="m-auto pr-3" for="id_compte" style="color:#fff; font-weight:bold; font-size:16px;">CLIENT SSN ID</label>
-                    <input class="form-control" name="id_compte" id="id_compte" type="textfield" placeholder="client ssn id" minlength="9" maxlength="9">
+                        <label class="m-auto pr-3" for="client_ssn_id" style="color:#fff; font-weight:bold; font-size:16px;">CLIENT SSN ID</label>
+                    <input class="form-control" name="client_ssn_id" id="client_ssn_id" type="textfield" placeholder="client ssn id" minlength="9" maxlength="9">
                     </div>
                     <br>
                     <div class="form-group col-12 text-center" >

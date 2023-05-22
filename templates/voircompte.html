@@ -50,9 +50,11 @@
                             <td>
                                Statut
                             </td>
-                            <td>
-                                <span class="badge bg-success text-center">{{ i.statut }}</span>
-                            </td>
+                            {% if i.statut == 'activer' %}
+                            <td> <span class="badge bg-success text-center">{{ i.statut }}</span></td>
+                            {% else %}
+                            <td> <span class="badge bg-danger text-center">{{ i.statut }}</span></td>
+                            {% endif %}
                         </tr>
                     </tbody>
                 </table>
@@ -66,26 +68,26 @@
                         </a>
                         {% else %}
                             <a href="{{ url_for('activercompte',id_compte=i.id_compte ) }}">
-                                <button class="btn float-right">Activer</button>
+                                <button class="btn float-right" style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">Activer</button>
                             </a>
                         {% endif %}
                     {% elif session['user_type']=="caissier" %}
                         {% if i.statut == 'activer' %}
                             <div class="col-md-4">
                                 <a href="{{ url_for('depot',id_compte=i.id_compte ) }}">
-                                    <button class="btn">Dépôt</button>
+                                    <button class="btn" style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">Dépôt</button>
                                 </a>
                             </div>
                             {% if data|length > 1 %}
                                 <div class="col-md-4">
                                     <a href="{{ url_for('transfert',id_client=i.id_client) }}">
-                                        <button class="btn">Transfert</button>
+                                        <button class="btn" style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">Transfert</button>
                                     </a>
                                 </div>
                             {% endif %}
                             <div class="col-md-4">
                                 <a href="{{ url_for('retrait',id_compte=i.id_compte ) }}">
-                                    <button class="btn">Retrait</button>
+                                    <button class="btn" style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;">Retrait</button>
                                 </a>
                             </div>
                         {% endif %}
@@ -94,7 +96,7 @@
             </div>
             {%endfor%}
             {%else%}
-            <form class="row gy-2 gx-3 align-items-center" action="ajoutcompte" method="POST" style="height: 40vh; display: contents;"  >
+            <form class="row gy-2 gx-3 align-items-center" action="voircompte" method="POST" style="height: 40vh; display: contents;"  >
                 <div class="col-auto">
                     <label class="m-auto pr-3" for="id_compte" style="color:#fff ; font-weight:bold; font-size:16px;">ID COMPTE</label>
                     <input class="form-control" name="id_compte" id="id_compte" type="textfield" placeholder="ID Compte" minlength="9" maxlength="9">
