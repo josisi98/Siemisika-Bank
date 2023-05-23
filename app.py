@@ -36,7 +36,7 @@ def dashboard():
 @app.route("/ajoutclient", methods=["GET", "POST"])
 def ajoutclient():
     # recupere les pays api
-    recup_pays = requests.get('https://restcountries.com/v3.1/all')
+    recup_pays = requests.get('https://restcountries.com/v3.1/all', [])
     liste_pays = recup_pays.json()
     pays_nom = []
     for i in liste_pays:
@@ -338,11 +338,8 @@ def voircompte():
         if request.method == "POST":
             id_compte = request.form.get("id_compte")
             id_client = request.form.get("id_client")
-            # if id_compte and id_compte.strip():
-            #     id_compte = int(request.form.get("id_compte"))
-            #     id_client = int(request.form.get("id_client"))
             data = db.execute("SELECT * from comptes WHERE id_client = :c or id_compte = :d", {
-                              "c": id_client, "d": id_compte}).fetchall()
+                              "c": id_client, "d": id_compte}).fetchone()
             if data:
                 return render_template('voircompte.html', voircompte=True, data=data)
 
@@ -517,7 +514,7 @@ def transfert(id_client=None):
             else:
                 data = db.execute(
                     "select * from comptes where id_client = :a", {"a": id_client}).fetchall()
-                if data and len(data) == 2:
+                if data:
                     return render_template('transfert.html', depot=True, id_client=id_client)
                 else:
                     flash("Données introuvables ou ID client invalide", 'danger')

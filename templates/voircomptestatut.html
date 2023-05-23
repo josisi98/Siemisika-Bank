@@ -16,9 +16,9 @@
                     <th> ID du Client</th>
                     <th> ID du Compte</th>
                     <th> Type du Compte</th>
-                    <th> État du compte</th>
+                    <th> État du Compte</th>
                     <th> Message</th>
-                    <th> Dernière Miseàjour</th>
+                    <th> Dernière Mise à jour</th>
                     <th> Opérations</th>
                   </tr>
                 </thead>
@@ -35,7 +35,7 @@
                     {% endif %}
                     <td>   {{ i.message }}</td>
                     <td>   {{ i.dernier_majour }}</td>
-                    <td><a href="javaScript:void(0)" class="actualiser_compte" style="color: #ff7302;" data-id_compte="{{ i.id_compte }}">Actualiser</a></td>
+                    <td><a href="javascript:void(0)" class="actualiser_compte" style="color: #ff7302;" data-id_compte="{{ i.id_compte }}">Actualiser</a></td>
                   </tr>
                 
                     

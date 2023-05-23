@@ -5,7 +5,7 @@ $(document).ready(function() {
     }, 5000); // <-- time in milliseconds
 
     $('#afficherPwd').click(function(){
-        let x = $("#pwdInput")
+        var x = $("#pwdInput")
         if (x.type === "password") {
             x.type = "text";
         } else {
@@ -71,7 +71,7 @@ $(document).ready(function() {
         var data = {"id_client": id_client}
         $.ajax({
             type: "POST",
-            url: "/api/v1/customerlog",
+            url: "/api/v1/carnetclient",
             dataType: 'json',
             data: JSON.stringify(data),
             contentType:"application/json; charset=UTF-8"
@@ -92,7 +92,7 @@ $(document).ready(function() {
         var data = {"id_compte": id_compte}
         $.ajax({
             type: "POST",
-            url: "/api/v1/accountlog",
+            url: "/api/v1/carnetcomptes",
             dataType: 'json',
             data: JSON.stringify(data),
             contentType:"application/json; charset=UTF-8"

@@ -72,35 +72,35 @@
     </div>
 </div>
 {%else%}
-      <form action="declaration" id="view_acc" method="POST">
-        <div class="form-group input-group mb-3">
-            <label class="m-auto pr-3" for="id_compte">Id du compte</label>
-           <input class="form-control" name="id_compte" id="id_compte" type="textfield" placeholder="Account ID" minlength="9" maxlength="9">
-        </div>
-        <div class="form-group input-group mb-3">
-            <label><input type="radio" name="Radio" value="red"> Dernières transactions</label></br>
-            <label><input type="radio" name="Radio" value="green"> Date de début, date de fin</label>
+<form action="declaration" id="view_acc" method="POST">
+    <div class="form-group input-group mb-3">
+        <label class="m-auto pr-3" for="id_compte">Id du compte</label>
+        <input class="form-control" name="id_compte" id="id_compte" type="textfield" placeholder="ID compte" minlength="9" maxlength="9">
+    </div>
+    <div class="form-group input-group mb-3">
+        <label><input type="radio" name="Radio" value="red"> Dernières transactions</label></br>
+        <label><input type="radio" name="Radio" value="green"> Date de début, date de fin</label>
 
-        </div>
-        <div class="red box" style="display: none;">
-            <label class="m-auto pr-3" for="number">  Dernier n° Transaction</label>
-            <input class="form-control" name="number" id="number" type="number" placeholder="Numbers of Transactions" maxlength="3">
-          
-        </div>
-        <div class="green box" style="display: none;">
-            <label for="start_date">Date de début:</label>
-            <input type="date" id="start_date" name="start_date">
-             <label for="end_date">Date de fin:</label>
-            <input type="date" id="end_date" name="end_date">
+    </div>
+    <div class="red box" style="display: none;">
+        <label class="m-auto pr-3" for="number">  Dernier n° Transaction</label>
+        <input class="form-control" name="number" id="number" type="number" placeholder="Nombres de Transactions" maxlength="3">
       
-        </div>
-    
-      
-     
-        <div class="form-group">
-            <input type="submit" value="Voir" class="btn">
-        </div>
-    </form>
+    </div>
+    <div class="green box" style="display: none;">
+        <label for="start_date">Date de début:</label>
+        <input type="date" id="start_date" name="start_date">
+          <label for="end_date">Date de fin:</label>
+        <input type="date" id="end_date" name="end_date">
+  
+    </div>
+
+  
+  
+    <div class="form-group">
+        <input type="submit" value="Voir" class="btn">
+    </div>
+</form>
 {% endif %}
         <script>
             $(document).ready(function () {
@@ -130,8 +130,8 @@ function getPagination(table) {
       //	nombres de pages
       for (var i = 1; i <= pagenum;) { // pour chaque page, ajouter le lien pagination li
         $('.pagination').append('<li class"wp" data-page="' + i + '">\
-<span>' + i++ + '<span class="sr-only">(current)</span></span>\
-</li>').show();
+        <span>' + i++ + '<span class="sr-only">(current)</span></span>\
+        </li>').show();
       } // end for i
     } // fin si le nombre de lignes > nombre maximum de lignes
     $('.pagination li:first-child').addClass('activer'); // ajouter une classe d'actifs à la première ligne
@@ -160,31 +160,31 @@ function getPagination(table) {
 
   // END OF PAGINATION
 }
-// Radio button
-$(function() {
-    $('input[name="Transactions"]').on('click', function() {
-        if ($(this).val() == 'Transactions') {
-            $('#textboxes').show();
-        }
-        else if ($(this).val() == 'Dates') {
-            $('#dates').show();
-        }
-        else {
-            $('#textboxes').hide();
-        }
-    });
-});
+  // Radio button
+  $(function() {
+      $('input[name="Transactions"]').on('click', function() {
+          if ($(this).val() == 'Transactions') {
+              $('#textboxes').show();
+          }
+          else if ($(this).val() == 'Dates') {
+              $('#dates').show();
+          }
+          else {
+              $('#textboxes').hide();
+          }
+      });
+  });
 
-$(document).ready(function(){
-    $('input[type="radio"]').click(function(){
-        var inputValue = $(this).attr("value");
-        var targetBox = $("." + inputValue);
-        $(".box").not(targetBox).hide();
-        $(targetBox).show();
-    });
-});
-     </script>
-    </body>
+  $(document).ready(function(){
+      $('input[type="radio"]').click(function(){
+          var inputValue = $(this).attr("value");
+          var targetBox = $("." + inputValue);
+          $(".box").not(targetBox).hide();
+          $(targetBox).show();
+      });
+  });
+    </script>
+  </body>
 </html>
  
 {% endblock %}
