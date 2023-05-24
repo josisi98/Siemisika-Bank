@@ -18,15 +18,13 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = os.urandom(24)
 
-# Set up database
+# Configurer la BaseDonnée
 engine = create_engine('sqlite:///sikabank.db',
                        connect_args={'check_same_thread': False}, echo=True)
 Base.metadata.bind = engine
 db = scoped_session(sessionmaker(bind=engine))
 
-# MAIN
-
-
+# Code principal (Les Routes)
 @app.route('/')
 @app.route("/dashboard")
 def dashboard():

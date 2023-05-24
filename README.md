@@ -8,3 +8,7 @@ Application de gestion bancaire avec des simulation fictifs d'argents, #NaN(étu
 4. Iniatialiser nos differents tables (python3 database.py)
 5. Iniatialiser les données fictif (python3 load_data.py)
 6. Run l'appli (flask run  OU  python3 app.py)
+
+## Les accès
+- Gestionnaire( username= C00000001 ; mdp=Moiseo@001 )
+- Caissier(ère) ( username= C00000002 ; mdp=Josias@002 )
