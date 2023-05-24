@@ -747,7 +747,7 @@ def carnetclient():
             return jsonify(t)
         else:
             dict_data = []
-            data = db.execute("SELECT clients.id_client as id, clients.client_ssn_id as ssn_id, carnet_client. message_enregistrement as message, carnet_client.heure_sortir as date from carnet_client JOIN clients ON clients.id_client = carnet_client.id_client order by carnet_client.heure_sortir desc limit 50").fetchall()
+            data = db.execute("SELECT clients.id_client as id, clients.client_ssn_id as ssn_id,clients.nom, clients.statut, carnet_client. message_enregistrement as message, carnet_client.heure_sortir as date from carnet_client JOIN clients ON clients.id_client = carnet_client.id_client order by carnet_client.heure_sortir desc limit 50").fetchall()
             for row in data:
                 t = {
                     "id": row.id,

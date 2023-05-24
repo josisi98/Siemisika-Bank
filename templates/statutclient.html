@@ -19,7 +19,6 @@
                             <td>Statut du client</td>
                             <td>Message</td>
                             <td>Dernière mise à jour</td>
-                            <td>Opérations</td>
                             <td>Voir le profil</td>
                         </tr>
                     </thead>
@@ -45,11 +44,6 @@
                             </td>
                             <td>
                                 {{ i.date }}
-                            </td>
-                            <td>
-                                <a href="javascript:void(0)" class="actualiser_client" style="color: #ff7302;" data-id_client="{{ i.id }}">
-                                    Actualiser
-                                </a>
                             </td>
                             <td>
                                 <a href="{{ url_for('voirclient',id_client= i.id) }}">

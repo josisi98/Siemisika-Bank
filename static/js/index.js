@@ -99,7 +99,7 @@ $(document).ready(function() {
         }).done(function(result){
             console.log(result)
             parrent_ele = target.parentElement.parentElement
-            parrent_ele.children[3].innerHTML = result.status
+            parrent_ele.children[3].innerHTML = result.statut
             parrent_ele.children[4].innerHTML = result.message
             parrent_ele.children[5].innerHTML = result.date
         }).fail(function(error){
