@@ -5,22 +5,22 @@
 {% block content %}
 <div class = "row col-md-8 my-5">
     <div class="card col-md-8 mx-auto px-0">
-        <div class="card-header">
+        <div class="card-header text-center" style="color:#070439;background-color:#ff7302; font-size:18px;font-weight:bold;">
             Montant du dépôt
         </div>
-        <div class="card-body">
+        <div class="card-body" style="background-color:#070439">
             {% if data.statut == 'activer' %}
             <form action="{{ url_for('depot',id_compte=data.id_compte) }}" method="POST">
-                <table class="col-md-12">
+                <table class="col-md-12" style="color:#fff;">
                     <tbody>
-                        <tr>
+                        <tr style=" font-size:18px;font-weight:bold;">
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">ID du client</label>
+                                    <label class="pl-3">ID du CLIENT</label>
                                 </div>
                             </th>
                             <th>
-                                <div class="form-group input-group">
+                                <div class="form-group input-group" style="font-weight: 18px;">
                                     <label class="pl-3">{{ data.id_client }}</label>
                                 </div>
                                 
@@ -29,7 +29,7 @@
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Id du compte</label>
+                                    <label class="pl-3">ID du COMPTE</label>
                                 </div>
                                 
                             </th>
@@ -42,7 +42,7 @@
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Type du comptes</label>
+                                    <label class="pl-3">TYPE du COMPTE</label>
                                 </div>
                                 
                             </th>
@@ -56,7 +56,7 @@
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Solde</label>
+                                    <label class="pl-3">SOLDE</label>
                                 </div>
                                 
                             </th>
@@ -70,7 +70,7 @@
                         <tr>
                             <th>
                                 <div class="form-group input-group">
-                                    <label class="pl-3">Montant du Dépôt</label>
+                                    <label class="pl-3">MONTANT du DEPOT</label>
                                 </div>
                                 
                             </th>
@@ -84,7 +84,7 @@
                         <tr>
                             <th colspan="2">
                                 <div class="form-group input-group mt-3">
-                                    <input type="submit" value="Envoyer" onclick="alert('Êtes-vous sûr de vouloir faire un dépôt ?')" class="btn mx-auto">
+                                    <input type="submit" value="Envoyer" style="color:#070439;background-color:#ff7302;font-weight:bold; font-size:18px;"onclick="alert('Êtes-vous sûr de vouloir faire un dépôt ?')" class="btn mx-auto">
                                 </div>
                             </th>
                         </tr>
