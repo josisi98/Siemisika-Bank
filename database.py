@@ -1,6 +1,5 @@
-import os
-import sys ,datetime
-from sqlalchemy import Column, ForeignKey, Integer, String, BigInteger
+import datetime
+from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import DateTime
 from sqlalchemy.orm import relationship

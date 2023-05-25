@@ -1,18 +1,15 @@
 import os
 import requests
-import json
 import io
-import sys
-from flask import send_file
 from flask import Flask, session, render_template, request, redirect, url_for, flash, jsonify, Response
 from flask_bcrypt import Bcrypt
-from flask_session import Session
 from database import Base, Comptes, Clients, Utilisateurs, Carnet_client, Transactions
 from sqlalchemy import create_engine, exc
 from sqlalchemy.orm import scoped_session, sessionmaker
 import datetime
 import xlwt
 from fpdf import FPDF
+from charge_donees import compte
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -23,6 +20,9 @@ engine = create_engine('sqlite:///sikabank.db',
                        connect_args={'check_same_thread': False}, echo=True)
 Base.metadata.bind = engine
 db = scoped_session(sessionmaker(bind=engine))
+
+# Creation des utilisateurs
+compte()
 
 # Code principal (Les Routes)
 @app.route('/')

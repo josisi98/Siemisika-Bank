@@ -3,3 +3,4 @@ requests
 fpdf
 xml
 SQLAlchemy
+flask_bcrypt
