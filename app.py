@@ -9,7 +9,6 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 import datetime
 import xlwt
 from fpdf import FPDF
-from charge_donees import compte
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -21,8 +20,6 @@ engine = create_engine('sqlite:///sikabank.db',
 Base.metadata.bind = engine
 db = scoped_session(sessionmaker(bind=engine))
 
-# Creation des utilisateurs
-compte()
 
 # Code principal (Les Routes)
 @app.route('/')

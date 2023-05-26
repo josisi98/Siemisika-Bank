@@ -1,7 +1,4 @@
-import sys
-import csv
-import os
-from database import Base,Comptes,Clients,Utilisateurs,Carnet_client,Transactions
+from database import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from flask_bcrypt import Bcrypt
