@@ -688,6 +688,7 @@ def login():
         passw = request.form.get("password").encode('utf-8')
         result = db.execute(
             "SELECT * FROM utilisateurs WHERE id = :u", {"u": usern}).fetchone()
+        print(result)
         if result is not None:
             if bcrypt.check_password_hash(result['mot_de_passe'], passw) is True:
                 session['utilisateurs'] = usern
