@@ -1,6 +1,6 @@
 flask
 requests
 fpdf
-xml
+xlwt
 SQLAlchemy
 flask_bcrypt
